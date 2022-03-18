@@ -1,0 +1,23 @@
+#ifndef OSUMANIA_GAME_H
+#define OSUMANIA_GAME_H
+
+#include <SFML/Graphics.hpp>
+
+namespace nadpher
+{
+	class Game
+	{
+	public:
+
+		static bool init(unsigned int width, unsigned int height, const char* title = "OSU Mania");
+		static void run();
+
+	private:
+
+		static void handleEvents();
+
+		static sf::RenderWindow window_;
+	};
+}
+
+#endif
