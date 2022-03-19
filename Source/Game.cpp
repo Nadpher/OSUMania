@@ -5,6 +5,7 @@
 namespace nadpher
 {
 	sf::RenderWindow Game::window_;
+	float	         Game::deltaTime_;
 
 	bool Game::init(unsigned int width, unsigned int height, const char* title)
 	{
@@ -25,7 +26,7 @@ namespace nadpher
 		while (window_.isOpen())
 		{
 			sf::Time elapsed = clock.restart();
-			float deltaTime = elapsed.asSeconds();
+			deltaTime_ = elapsed.asSeconds();
 
 			handleEvents();
 
