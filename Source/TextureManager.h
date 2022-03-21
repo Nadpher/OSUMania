@@ -2,6 +2,7 @@
 #define OSUMANIA_TEXTURE_MANAGER_H
 
 #include <SFML/Graphics.hpp>
+#include <spdlog/spdlog.h>
 
 #include <memory>
 #include <string>
@@ -12,12 +13,25 @@ namespace nadpher
 	class TextureManager
 	{
 	public:
-		TextureManager() = delete;
+		static std::shared_ptr<sf::Texture>& get(const std::string& path)
+		{
+			if (!textures_.count(path))
+			{
+				sf::Texture texture;
+				if (!texture.loadFromFile(path))
+				{
+					spdlog::error("Couldn't load texture {}", path);
+				}
 
-		static std::shared_ptr<sf::Texture>& get(const std::string& path);
+				textures_.insert({ path, std::make_shared<sf::Texture>(texture) });
+			}
+
+			return textures_[path];
+		}
 
 	private:
 		static std::map<std::string, std::shared_ptr<sf::Texture>> textures_;
+
 	};
 }
 

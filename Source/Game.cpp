@@ -5,6 +5,8 @@
 #include "SceneManager.h"
 #include "Input.h"
 
+#include "Scenes/MainScene/Note.h"
+
 namespace nadpher
 {
 	sf::RenderWindow Game::window_;
@@ -25,6 +27,7 @@ namespace nadpher
 	void Game::run()
 	{
 		sf::Clock clock;
+		Note test(0, 1);
 
 		while (window_.isOpen())
 		{
@@ -38,8 +41,11 @@ namespace nadpher
 				SceneManager::getInstance()->getScene()->end();
 			}
 
+			test.update();
+
 			window_.clear();
 			window_.draw(*SceneManager::getInstance()->getScene());
+			window_.draw(test);
 			window_.display();
 		}
 	}

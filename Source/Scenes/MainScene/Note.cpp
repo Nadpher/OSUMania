@@ -1,14 +1,14 @@
 #include "Note.h"
 
-#include "../../TextureManager.h"
 #include "../../Input.h"
 #include "../../Game.h"
+#include "../../TextureManager.h"
 
 namespace nadpher
 {
 	Note::Note(unsigned int lane, float timePosition)
 		: lane_(lane), timePosition_(timePosition),
-		  worldPosition_{}
+		  worldPosition_{}, sprite_{}
 	{
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
 	}
@@ -17,7 +17,7 @@ namespace nadpher
 	// which will be the approach rate of the beatmap
 	void Note::update()
 	{
-		timePosition_ -= Game::getDeltaTime();
+		timePosition_ += Game::getDeltaTime() * 1000.0f;
 		worldPosition_.y = timePosition_;
 
 		sprite_.setPosition(worldPosition_);
