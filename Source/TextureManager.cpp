@@ -16,7 +16,7 @@ namespace nadpher
 				spdlog::error("Couldn't load texture {}", path);
 			}
 
-			textures_[path] = std::make_shared<sf::Texture>(texture);
+			textures_.insert({ path, std::make_shared<sf::Texture>(texture) });
 		}
 
 		return textures_[path];
