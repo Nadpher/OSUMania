@@ -15,6 +15,7 @@ namespace nadpher
 		static void quit() { window_.close(); }
 
 		static float getDeltaTime() { return deltaTime_; }
+		static sf::Vector2u getBounds() { return windowSize_; }
 
 	private:
 
@@ -22,6 +23,7 @@ namespace nadpher
 
 		static float deltaTime_;
 		static sf::RenderWindow window_;
+		static sf::Vector2u windowSize_;
 	};
 }
 

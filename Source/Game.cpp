@@ -10,6 +10,7 @@
 namespace nadpher
 {
 	sf::RenderWindow Game::window_;
+	sf::Vector2u	 Game::windowSize_;
 	float	         Game::deltaTime_;
 
 	bool Game::init(unsigned int width, unsigned int height, const char* title)
@@ -21,14 +22,14 @@ namespace nadpher
 			return false;
 		}
 
+		windowSize_ = { width, height };
+
 		return true;
 	}
 
 	void Game::run()
 	{
 		sf::Clock clock;
-		Note test(0, 1);
-
 		while (window_.isOpen())
 		{
 			sf::Time elapsed = clock.restart();
@@ -41,11 +42,8 @@ namespace nadpher
 				SceneManager::getInstance()->getScene()->end();
 			}
 
-			test.update();
-
 			window_.clear();
 			window_.draw(*SceneManager::getInstance()->getScene());
-			window_.draw(test);
 			window_.display();
 		}
 	}
