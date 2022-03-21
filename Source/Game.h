@@ -12,6 +12,8 @@ namespace nadpher
 		static bool init(unsigned int width, unsigned int height, const char* title = "OSU Mania");
 		static void run();
 
+		static void quit() { window_.close(); }
+
 		static float getDeltaTime() { return deltaTime_; }
 
 	private:

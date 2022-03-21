@@ -5,6 +5,7 @@ namespace nadpher
 	bool MainScene::update()
 	{
 
+		return true;
 	}
 
 	void MainScene::end()

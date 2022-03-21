@@ -1,6 +1,9 @@
+#include <spdlog/spdlog.h>
+
 #include "Game.h"
 
-#include <spdlog/spdlog.h>
+#include "SceneManager.h"
+#include "Input.h"
 
 namespace nadpher
 {
@@ -30,8 +33,13 @@ namespace nadpher
 
 			handleEvents();
 
-			window_.clear();
+			if (!SceneManager::getInstance()->getScene()->update())
+			{
+				SceneManager::getInstance()->getScene()->end();
+			}
 
+			window_.clear();
+			window_.draw(*SceneManager::getInstance()->getScene());
 			window_.display();
 		}
 	}
@@ -47,7 +55,17 @@ namespace nadpher
 				window_.close();
 				break;
 
+			case sf::Event::KeyPressed:
+				Input::keysPressed_[event.key.code] = true;
+				break;
+
+			case sf::Event::KeyReleased:
+				Input::keysReleased_[event.key.code] = true;
+				break;
+
 			default:
+				Input::keysPressed_[event.key.code] = false;
+				Input::keysReleased_[event.key.code] = false;
 				break;
 			}
 		}

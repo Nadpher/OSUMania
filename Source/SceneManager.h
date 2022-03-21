@@ -5,6 +5,7 @@
 #include <memory>
 
 #include "Scenes/Scene.h"
+#include "Scenes/MainScene/MainScene.h"
 
 namespace nadpher
 {
@@ -12,12 +13,24 @@ namespace nadpher
 	{
 	public:
 
-		static std::unique_ptr<Scene>& getScene() { return scenes_[currentScene_]; }
+		static SceneManager* getInstance()
+		{
+			static SceneManager* instance = new SceneManager;
+			return instance;
+		}
+
+		std::unique_ptr<Scene>& getScene() { return scenes_[currentScene_]; }
 
 	private:
 
-		static std::vector<std::unique_ptr<Scene>> scenes_;
-		static size_t currentScene_;
+		SceneManager()
+			: currentScene_(0)
+		{
+			scenes_.push_back(std::make_unique<MainScene>());
+		}
+
+		std::vector<std::unique_ptr<Scene>> scenes_;
+		size_t currentScene_;
 	};
 }
 
