@@ -13,7 +13,7 @@ namespace nadpher
 	class TextureManager
 	{
 	public:
-		std::shared_ptr<sf::Texture>& get(const std::string& path);
+		static std::shared_ptr<sf::Texture>& get(const std::string& path);
 
 	private:
 		static std::map<std::string, std::shared_ptr<sf::Texture>> textures_;
