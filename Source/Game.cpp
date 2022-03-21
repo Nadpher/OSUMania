@@ -64,8 +64,6 @@ namespace nadpher
 				break;
 
 			default:
-				Input::keysPressed_[event.key.code] = false;
-				Input::keysReleased_[event.key.code] = false;
 				break;
 			}
 		}

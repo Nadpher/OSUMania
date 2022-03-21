@@ -13,7 +13,6 @@ namespace nadpher
 
 	private:
 		unsigned int lane_;
-		sf::Vector2f position_;
 		float timePosition_;
 
 		sf::Sprite sprite_;
