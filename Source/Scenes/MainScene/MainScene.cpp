@@ -8,8 +8,12 @@
 
 namespace nadpher
 {
+	std::random_device dev;
+	std::mt19937 rng;
+	std::uniform_int_distribution<unsigned int> dist(0, 255);
+
 	MainScene::MainScene()
-		: conductor_("Songs/Test/song.ogg", 178.0f)
+		: conductor_("Songs/Test/song.ogg", 0.1f, 178.0f)
 	{
 		sf::Vector2u bounds = Game::getBounds();
 		strobe_.setSize({ (float)bounds.x, (float)bounds.y });
@@ -20,15 +24,13 @@ namespace nadpher
 	{
 		conductor_.update();
 
-		spdlog::info("Song position: {}", conductor_.getSongPosition());
+		static float counter = 0.0f;
 
-		if ((int)(conductor_.getSongPosition() * 100) % (int)conductor_.getBPM())
+		if (conductor_.getSongPosition() > counter + conductor_.getCrotchet())
 		{
-			std::random_device dev;
-			std::mt19937 rng;
-			std::uniform_int_distribution<unsigned int> dist(0, 255);
-
 			strobe_.setFillColor(sf::Color(dist(rng), dist(rng), dist(rng), 255));
+
+			counter += conductor_.getCrotchet();
 		}
 
 		return true;

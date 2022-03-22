@@ -15,6 +15,8 @@ namespace nadpher
 
 	bool Game::init(unsigned int width, unsigned int height, const char* title)
 	{
+		spdlog::set_level(spdlog::level::debug);
+
 		window_.create(sf::VideoMode(width, height), title);
 		if (!window_.isOpen())
 		{
