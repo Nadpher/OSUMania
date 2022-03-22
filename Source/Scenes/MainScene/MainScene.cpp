@@ -1,5 +1,6 @@
 #include "../../Game.h"
 #include "../../Input.h"
+#include "../../TextureManager.h"
 
 #include "MainScene.h"
 #include "Note.h"
@@ -24,11 +25,14 @@ namespace nadpher
 		// generates notes on each beat
 		for (int i = 0; i < 8; ++i)
 		{
-			notes_.push_back({ conductor_, crotchet * (i + 5), 1000.0f });
+			notes_.push_back({ conductor_, crotchet * (i + 5), 500.0f });
 		}
 
 		judgementLine_[0].position = sf::Vector2f(0.0f, judgementLinePosition);
 		judgementLine_[1].position = sf::Vector2f(Game::getBounds().x, judgementLinePosition);
+
+		judgementSprite_.setPosition({ 0.0f, judgementLinePosition });
+		judgementSprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
 	}
 
 	bool MainScene::update()
@@ -94,6 +98,7 @@ namespace nadpher
 	void MainScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(judgementLine_);
+		target.draw(judgementSprite_);
 		for (const Note& note : notes_)
 		{
 			target.draw(note);

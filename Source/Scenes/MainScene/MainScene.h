@@ -35,6 +35,7 @@ namespace nadpher
 		bool judgeNote();
 
 		sf::VertexArray judgementLine_;
+		sf::Sprite judgementSprite_;
 		std::deque<Note> notes_;
 
 		Conductor conductor_;
