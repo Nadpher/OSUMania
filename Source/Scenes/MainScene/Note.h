@@ -10,7 +10,7 @@ namespace nadpher
 	class Note : public sf::Drawable
 	{
 	public:
-		Note(unsigned int lane = 0, float timePosition = 0.0f);
+		Note(unsigned int lane = 0, float timePosition = 0.0f, float speed = 0.0f);
 
 		void update(Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -21,6 +21,8 @@ namespace nadpher
 
 		// TODO: Implement command pattern!!!!!!
 		const unsigned int lane_;
+		const float timePosition_;
+		const float speed_;
 
 		sf::Vector2f worldPosition_;
 		sf::Sprite sprite_;

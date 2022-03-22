@@ -22,6 +22,7 @@ namespace nadpher
 			song_.setLoop(false);
 
 			song_.play();
+			song_.setVolume(50.0f);
 		}
 	}
 

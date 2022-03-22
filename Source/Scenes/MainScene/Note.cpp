@@ -7,15 +7,17 @@
 
 namespace nadpher
 {
-	Note::Note(unsigned int lane, float timePosition)
-		: lane_(lane), worldPosition_{}, sprite_{}
+	Note::Note(unsigned int lane, float timePosition, float speed)
+		: lane_(lane), timePosition_(timePosition), speed_(speed),
+		  worldPosition_{}, sprite_{}
 	{
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
+		worldPosition_.y = -speed_ * timePosition_;
 	}
 
 	void Note::update(Conductor& conductor)
 	{
-		worldPosition_.x = conductor.getSongPosition();
+		worldPosition_.y += speed_ * Game::getDeltaTime();
 
 		sprite_.setPosition(worldPosition_);
 	}
