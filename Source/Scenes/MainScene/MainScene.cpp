@@ -1,4 +1,5 @@
 #include "../../Game.h"
+#include "../../Input.h"
 
 #include "MainScene.h"
 #include "Note.h"
@@ -39,7 +40,50 @@ namespace nadpher
 			note.update();
 		}
 
+		if (Input::isKeyPressed(sf::Keyboard::Z) && !notes_.empty() && !hitNote_)
+		{
+			hitNote_ = judgeNote();
+			if (hitNote_)
+			{
+				notes_.pop_front();
+			}
+		}
+
+		if (Input::isKeyReleased(sf::Keyboard::Z))
+		{
+			hitNote_ = false;
+		}
+
 		return true;
+	}
+
+	bool MainScene::judgeNote()
+	{
+		if (std::abs(notes_.front().getTimePosition() - conductor_.getSongPosition()) < perfectTreshold)
+		{
+			spdlog::info("Perfect");
+			return true;
+		}
+		
+		if (std::abs(notes_.front().getTimePosition() - conductor_.getSongPosition()) < goodTreshold)
+		{
+			spdlog::info("Good");
+			return true;
+		}
+
+		if (std::abs(notes_.front().getTimePosition() - conductor_.getSongPosition()) < okTreshold)
+		{
+			spdlog::info("Ok");
+			return true;
+		}
+
+		if (std::abs(notes_.front().getTimePosition() - conductor_.getSongPosition()) < mehTreshold)
+		{
+			spdlog::info("Meh");
+			return true;
+		}
+
+		return false;
 	}
 
 	void MainScene::end()

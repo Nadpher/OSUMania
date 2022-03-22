@@ -15,6 +15,8 @@ namespace nadpher
 		void update();
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		const float getTimePosition() const { return timePosition_; }
+
 	private:
 
 		// TODO: Implement command pattern!!!!!!

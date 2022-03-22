@@ -32,6 +32,8 @@ namespace nadpher
 	void Game::run()
 	{
 		sf::Clock clock;
+
+		window_.setKeyRepeatEnabled(false);
 		while (window_.isOpen())
 		{
 			sf::Time elapsed = clock.restart();
@@ -63,10 +65,12 @@ namespace nadpher
 
 			case sf::Event::KeyPressed:
 				Input::keysPressed_[event.key.code] = true;
+				Input::keysReleased_[event.key.code] = false;
 				break;
 
 			case sf::Event::KeyReleased:
 				Input::keysReleased_[event.key.code] = true;
+				Input::keysPressed_[event.key.code] = false;
 				break;
 
 			default:

@@ -9,8 +9,8 @@ namespace nadpher
 	class Input
 	{
 	public:
-		bool isKeyPressed(const sf::Keyboard::Key& key) const { return keysPressed_[key]; }
-		bool isKeyReleased(const sf::Keyboard::Key& key) const { return keysReleased_[key]; }
+		static bool isKeyPressed(const sf::Keyboard::Key& key) { return keysPressed_[key]; }
+		static bool isKeyReleased(const sf::Keyboard::Key& key) { return keysReleased_[key]; }
 
 	private:
 
