@@ -16,7 +16,8 @@ namespace nadpher
 
 	MainScene::MainScene()
 		: conductor_("Songs/Test/song.ogg", 0.1f, 178.0f),
-		 judgementLine_(sf::LinesStrip, 2)
+		  judgementLine_(sf::LinesStrip, 2),
+		  hitNote_(false)
 	{
 		sf::Vector2u bounds = Game::getBounds();
 
@@ -30,9 +31,6 @@ namespace nadpher
 
 		judgementLine_[0].position = sf::Vector2f(0.0f, judgementLinePosition);
 		judgementLine_[1].position = sf::Vector2f(Game::getBounds().x, judgementLinePosition);
-
-		judgementSprite_.setPosition({ 0.0f, judgementLinePosition });
-		judgementSprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
 	}
 
 	bool MainScene::update()
@@ -98,7 +96,6 @@ namespace nadpher
 	void MainScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(judgementLine_);
-		target.draw(judgementSprite_);
 		for (const Note& note : notes_)
 		{
 			target.draw(note);
