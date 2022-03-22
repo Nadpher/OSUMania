@@ -14,9 +14,17 @@ namespace nadpher
 
 	MainScene::MainScene()
 		: conductor_("Songs/Test/song.ogg", 0.1f, 178.0f),
-		  judgementLine_(sf::LinesStrip, 2)
+		 judgementLine_(sf::LinesStrip, 2)
 	{
 		sf::Vector2u bounds = Game::getBounds();
+
+		float crotchet = conductor_.getCrotchet();
+
+		// generates notes on each beat
+		for (int i = 0; i < 8; ++i)
+		{
+			notes_.push_back({ conductor_, crotchet * (i + 5), 1000.0f });
+		}
 
 		judgementLine_[0].position = sf::Vector2f(0.0f, judgementLinePosition);
 		judgementLine_[1].position = sf::Vector2f(Game::getBounds().x, judgementLinePosition);
@@ -25,6 +33,11 @@ namespace nadpher
 	bool MainScene::update()
 	{
 		conductor_.update();
+
+		for (Note& note : notes_)
+		{
+			note.update();
+		}
 
 		return true;
 	}
@@ -37,5 +50,9 @@ namespace nadpher
 	void MainScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		target.draw(judgementLine_);
+		for (const Note& note : notes_)
+		{
+			target.draw(note);
+		}
 	}
 }

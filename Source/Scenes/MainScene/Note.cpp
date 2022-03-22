@@ -4,20 +4,21 @@
 
 #include "Note.h"
 #include "Conductor.h"
+#include "MainScene.h"
 
 namespace nadpher
 {
-	Note::Note(unsigned int lane, float timePosition, float speed)
-		: lane_(lane), timePosition_(timePosition), speed_(speed),
-		  worldPosition_{}, sprite_{}
+	Note::Note(const Conductor& conductor, float timePosition, float velocity)
+		: timePosition_(timePosition), velocity_(velocity),
+		worldPosition_{}, sprite_{}
 	{
+		worldPosition_.y = (conductor.getSongPosition() - timePosition) * velocity_ + MainScene::judgementLinePosition;
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
-		worldPosition_.y = -speed_ * timePosition_;
 	}
 
-	void Note::update(Conductor& conductor)
+	void Note::update()
 	{
-		worldPosition_.y += speed_ * Game::getDeltaTime();
+		worldPosition_.y += Game::getDeltaTime() * velocity_;
 
 		sprite_.setPosition(worldPosition_);
 	}
