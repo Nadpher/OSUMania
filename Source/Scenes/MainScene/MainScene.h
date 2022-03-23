@@ -3,9 +3,7 @@
 
 #include "../Scene.h"
 
-#include "Conductor.h"
-#include "Note.h"
-#include "Lane.h"
+#include "Beatmap.h"
 
 #include <array>
 
@@ -21,9 +19,8 @@ namespace nadpher
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-
 	private:
-
+		Beatmap beatmap_;
 	};
 }
 

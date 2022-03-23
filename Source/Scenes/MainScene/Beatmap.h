@@ -5,14 +5,17 @@
 #include <SFML/Audio.hpp>
 
 #include <string>
+#include <array>
 
 #include "Conductor.h"
+#include "Lane.h"
 
 namespace nadpher
 {
 	class Beatmap : public sf::Drawable
 	{
 	public:
+		Beatmap();
 
 		sf::SoundSource::Status getBeatmapStatus() const { return song_.getStatus(); }
 
@@ -25,8 +28,15 @@ namespace nadpher
 		void pause() { song_.pause(); }
 		void stop()  { song_.stop();  }
 
+		static constexpr unsigned int lanesNum = 4;
+
+		static constexpr float laneOffset = 350.0f;
+		static constexpr float judgementLinePosition = 500.0f;
+
 	private:
 
+		sf::VertexArray judgementLine_;
+		std::array<Lane, lanesNum> lanes_;
 		sf::Music song_;
 		Conductor conductor_;
 	};

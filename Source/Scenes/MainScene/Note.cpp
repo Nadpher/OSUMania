@@ -4,7 +4,7 @@
 
 #include "Note.h"
 #include "Conductor.h"
-#include "MainScene.h"
+#include "Beatmap.h"
 
 namespace nadpher
 {
@@ -14,8 +14,8 @@ namespace nadpher
 	{
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
 
-		worldPosition_.x = lane * sprite_.getTextureRect().width + MainScene::laneOffset;
-		worldPosition_.y = (conductor.getSongPosition() - timePosition) * velocity + MainScene::judgementLinePosition;
+		worldPosition_.x = lane * sprite_.getTextureRect().width + Beatmap::laneOffset;
+		worldPosition_.y = (conductor.getSongPosition() - timePosition) * velocity + Beatmap::judgementLinePosition;
 	}
 
 	void Note::update()

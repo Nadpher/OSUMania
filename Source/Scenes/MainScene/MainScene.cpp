@@ -14,15 +14,29 @@ namespace nadpher
 	MainScene::MainScene()
 	{
 		sf::Vector2u bounds = Game::getBounds();
-
+		if (beatmap_.init("Songs/Test/"))
+		{
+			beatmap_.play();
+		}
 	}
 
 	bool MainScene::update()
 	{
+		switch (beatmap_.getBeatmapStatus())
+		{
+		case sf::SoundSource::Stopped:
+			ImGui::Begin("Test");
+			ImGui::Button("Test button");
+			ImGui::End();
+			break;
 
-		ImGui::Begin("Test");
-		ImGui::Button("Test button");
-		ImGui::End();
+		case sf::SoundSource::Playing:
+			beatmap_.update();
+			break;
+
+		default:
+			break;
+		}
 
 		return true;
 	}
@@ -34,6 +48,6 @@ namespace nadpher
 
 	void MainScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		// target.draw(beatmap_);
+		target.draw(beatmap_);
 	}
 }
