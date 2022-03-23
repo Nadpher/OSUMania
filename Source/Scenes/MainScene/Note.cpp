@@ -8,12 +8,14 @@
 
 namespace nadpher
 {
-	Note::Note(const Conductor& conductor, float timePosition, float velocity)
-		: timePosition_(timePosition), velocity_(velocity),
+	Note::Note(const Conductor& conductor, float timePosition, float velocity, unsigned int lane)
+		: timePosition_(timePosition), velocity_(velocity), lane_(lane),
 		worldPosition_{}, sprite_{}
 	{
-		worldPosition_.y = (conductor.getSongPosition() - timePosition) * velocity_ + MainScene::judgementLinePosition;
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
+
+		worldPosition_.x = lane * sprite_.getTextureRect().width + MainScene::laneOffset;
+		worldPosition_.y = (conductor.getSongPosition() - timePosition) * velocity + MainScene::judgementLinePosition;
 	}
 
 	void Note::update()
