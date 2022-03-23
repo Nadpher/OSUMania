@@ -4,32 +4,18 @@
 
 namespace nadpher
 {
-	Conductor::Conductor(const char* songPath, float offset, float bpm)
+	Conductor::Conductor(float duration, float offset, float bpm)
 		: bpm_(bpm), crotchet_(0), offset_(offset),
 		songPosition_{}
 	{
-		if (!song_.openFromFile(songPath))
-		{
-			spdlog::error("Couldn't load song {}", songPath);
-		}
-		else
-		{
-			float songDuration = song_.getDuration().asSeconds();
-			crotchet_ = 60.0f / bpm_;
-
-			spdlog::info("Song crotchet: {}", crotchet_);
-
-			song_.setLoop(false);
-
-			song_.play();
-			song_.setVolume(50.0f);
-		}
+		crotchet_ = 60.0f / bpm_;
+		spdlog::info("Song crotchet: {}", crotchet_);
 	}
 
-	bool Conductor::update()
+	bool Conductor::update(float songPosition)
 	{
 		// offsets for first beat
-		songPosition_ = song_.getPlayingOffset().asSeconds() + offset_;
+		songPosition_ = songPosition + offset_;
 
 		return true;
 	}

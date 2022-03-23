@@ -1,4 +1,5 @@
 #include <spdlog/spdlog.h>
+#include <imgui-SFML.h>
 
 #include "Game.h"
 
@@ -6,6 +7,7 @@
 #include "Input.h"
 
 #include "Scenes/MainScene/Note.h"
+
 
 namespace nadpher
 {
@@ -26,6 +28,8 @@ namespace nadpher
 
 		windowSize_ = { width, height };
 
+		ImGui::SFML::Init(window_);
+
 		return true;
 	}
 
@@ -41,6 +45,8 @@ namespace nadpher
 
 			handleEvents();
 
+			ImGui::SFML::Update(window_, elapsed);
+
 			if (!SceneManager::getInstance()->getScene()->update())
 			{
 				SceneManager::getInstance()->getScene()->end();
@@ -48,8 +54,14 @@ namespace nadpher
 
 			window_.clear();
 			window_.draw(*SceneManager::getInstance()->getScene());
+
+			ImGui::SFML::Render(window_);
 			window_.display();
 		}
+
+		if (window_.isOpen()) window_.close();
+
+
 	}
 
 	void Game::handleEvents()
@@ -57,6 +69,8 @@ namespace nadpher
 		sf::Event event;
 		while (window_.pollEvent(event))
 		{
+			ImGui::SFML::ProcessEvent(event);
+
 			switch (event.type)
 			{
 			case sf::Event::Closed:

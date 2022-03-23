@@ -21,17 +21,9 @@ namespace nadpher
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		static constexpr float judgementLinePosition = 500.0f;
-		static constexpr float noteVelocity = 500.0f;
-
-		static constexpr float laneOffset = 350.0f;
-		static constexpr size_t lanesSize = 4;
 
 	private:
 
-		sf::VertexArray judgementLine_;
-		std::array<Lane, lanesSize> lanes_;
-		Conductor conductor_;
 	};
 }
 
