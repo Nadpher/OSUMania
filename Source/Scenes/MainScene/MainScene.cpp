@@ -25,9 +25,6 @@ namespace nadpher
 		switch (beatmap_.getBeatmapStatus())
 		{
 		case sf::SoundSource::Stopped:
-			ImGui::Begin("Test");
-			ImGui::Button("Test button");
-			ImGui::End();
 			break;
 
 		case sf::SoundSource::Playing:
@@ -35,7 +32,15 @@ namespace nadpher
 			break;
 
 		default:
+			ImGui::Begin("Paused");
+			ImGui::Button("Stop");
+			ImGui::End();
 			break;
+		}
+
+		if (Input::isKeyPressed(sf::Keyboard::Key::Escape))
+		{
+			beatmap_.pause();
 		}
 
 		return true;

@@ -25,7 +25,19 @@ namespace nadpher
 		bool init(const std::string& folderPath);
 
 		void play()  { song_.play();  }
-		void pause() { song_.pause(); }
+
+		void pause()
+		{
+			if (song_.getStatus() == sf::SoundSource::Paused)
+			{
+				song_.play();
+			}
+			else
+			{
+				song_.pause();
+			}
+ 	    }
+
 		void stop()  { song_.stop();  }
 
 		static constexpr unsigned int lanesNum = 4;
