@@ -21,7 +21,6 @@ namespace nadpher
 
 		const size_t lane_;
 
-		// TODO: Implement command pattern!!!!!!
 		const float timePosition_;
 		const float velocity_;
 

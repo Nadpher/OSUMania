@@ -25,7 +25,7 @@ namespace nadpher
 		// generates notes on each beat
 		for (int i = 0; i < 8; ++i)
 		{
-			lanes_[i % 4].addNote({conductor_, crotchet * (i + 5), 500.0f, i % 4u});
+			lanes_[i % 4].addNote({conductor_, crotchet * (i + 5), 1000.0f, i % 4u});
 		}
 
 		judgementLine_[0].position = sf::Vector2f(0.0f, judgementLinePosition);
@@ -40,7 +40,39 @@ namespace nadpher
 		{
 			lane.update();
 		}
-		
+
+		if (Input::isKeyPressed(sf::Keyboard::Z))
+		{
+			if (lanes_[0].judgeNote(conductor_))
+			{
+				lanes_[0].popNote();
+			}
+		}
+
+		if (Input::isKeyPressed(sf::Keyboard::X))
+		{
+			if (lanes_[1].judgeNote(conductor_))
+			{
+				lanes_[1].popNote();
+			}
+		}
+
+		if (Input::isKeyPressed(sf::Keyboard::N))
+		{
+			if (lanes_[2].judgeNote(conductor_))
+			{
+				lanes_[2].popNote();
+			}
+		}
+
+		if (Input::isKeyPressed(sf::Keyboard::M))
+		{
+			if (lanes_[3].judgeNote(conductor_))
+			{
+				lanes_[3].popNote();
+			}
+		}
+
 		return true;
 	}
 

@@ -17,6 +17,8 @@ namespace nadpher
 		void addNote(const Note& note) { notes_.push_back(note); }
 		bool judgeNote(const Conductor& conductor);
 
+		void popNote() { notes_.pop_front(); }
+
 		static constexpr float missTreshold = 0.3f;
 		static constexpr float okTreshold = 0.2f;
 		static constexpr float goodTreshold = 0.1f;

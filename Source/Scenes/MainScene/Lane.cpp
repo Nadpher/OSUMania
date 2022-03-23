@@ -15,6 +15,11 @@ namespace nadpher
 
 	bool Lane::judgeNote(const Conductor& conductor)
 	{
+		if (notes_.empty())
+		{
+			return false;
+		}
+
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < perfectTreshold)
 		{
 			spdlog::info("Perfect");
