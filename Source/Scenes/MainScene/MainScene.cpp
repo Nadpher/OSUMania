@@ -25,6 +25,10 @@ namespace nadpher
 		switch (beatmap_.getBeatmapStatus())
 		{
 		case sf::SoundSource::Stopped:
+			ImGui::Begin("Select a song...");
+
+			ImGui::End();
+
 			break;
 
 		case sf::SoundSource::Playing:
@@ -33,7 +37,16 @@ namespace nadpher
 
 		default:
 			ImGui::Begin("Paused");
-			ImGui::Button("Stop");
+			if (ImGui::Button("Stop"))
+			{
+				beatmap_.stop();
+			}
+
+			if (ImGui::Button("Resume"))
+			{
+				beatmap_.pause();
+			}
+
 			ImGui::End();
 			break;
 		}
