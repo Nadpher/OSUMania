@@ -2,9 +2,9 @@
 #include <imgui-SFML.h>
 
 #include "Game.h"
+#include "Input.h"
 
 #include "SceneManager.h"
-#include "Input.h"
 
 #include "Scenes/MainScene/Note.h"
 
@@ -43,6 +43,9 @@ namespace nadpher
 			sf::Time elapsed = clock.restart();
 			deltaTime_ = elapsed.asSeconds();
 
+			// makes sure input only takes single key presses
+			Input::refreshInput();
+
 			handleEvents();
 
 			ImGui::SFML::Update(window_, elapsed);
@@ -60,8 +63,6 @@ namespace nadpher
 		}
 
 		if (window_.isOpen()) window_.close();
-
-
 	}
 
 	void Game::handleEvents()
@@ -78,13 +79,11 @@ namespace nadpher
 				break;
 
 			case sf::Event::KeyPressed:
-				Input::keysPressed_[event.key.code] = true;
-				Input::keysReleased_[event.key.code] = false;
+				Input::keysDown_[event.key.code] = true;
 				break;
 
 			case sf::Event::KeyReleased:
-				Input::keysReleased_[event.key.code] = true;
-				Input::keysPressed_[event.key.code] = false;
+				Input::keysUp_[event.key.code] = false;
 				break;
 
 			default:

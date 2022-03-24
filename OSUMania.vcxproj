@@ -141,10 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Scenes\MainScene\Beatmap.cpp" />
     <ClCompile Include="Source\Scenes\MainScene\Lane.cpp" />
     <ClCompile Include="Source\Scenes\MainScene\Conductor.cpp" />
-    <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Scenes\MainScene\MainScene.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -152,11 +152,11 @@
     <ClCompile Include="Source\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\Scenes\MainScene\Beatmap.h" />
     <ClInclude Include="Source\Scenes\MainScene\Lane.h" />
     <ClInclude Include="Source\Scenes\MainScene\Conductor.h" />
     <ClInclude Include="Source\Scenes\MainScene\Note.h" />
-    <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\Scenes\MainScene\MainScene.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />

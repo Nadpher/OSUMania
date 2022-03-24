@@ -38,7 +38,14 @@ namespace nadpher
 			}
  	    }
 
-		void stop()  { song_.stop();  }
+		void stop()  
+		{
+			song_.stop();
+			for (Lane& lane : lanes_)
+			{
+				lane.clear();
+			}
+		}
 
 		static constexpr unsigned int lanesNum = 4;
 

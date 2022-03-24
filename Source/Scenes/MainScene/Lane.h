@@ -18,6 +18,7 @@ namespace nadpher
 		bool judgeNote(const Conductor& conductor);
 
 		void popNote() { notes_.pop_front(); }
+		void clear() { notes_.clear(); }
 
 		static constexpr float missTreshold = 0.3f;
 		static constexpr float okTreshold = 0.2f;

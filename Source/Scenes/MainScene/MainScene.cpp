@@ -1,6 +1,6 @@
 #include "../../Game.h"
-#include "../../Input.h"
 #include "../../TextureManager.h"
+#include "../../Input.h"
 
 #include "MainScene.h"
 #include "Note.h"
@@ -38,7 +38,7 @@ namespace nadpher
 			break;
 		}
 
-		if (Input::isKeyPressed(sf::Keyboard::Key::Escape))
+		if (Input::isKeyDown(sf::Keyboard::Key::Escape))
 		{
 			beatmap_.pause();
 		}
