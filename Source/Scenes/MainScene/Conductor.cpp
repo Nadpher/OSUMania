@@ -4,23 +4,19 @@
 
 namespace nadpher
 {
-	Conductor::Conductor(float bpm)
+	Conductor::Conductor()
 		: bpm_(0), crotchet_(0), offset_(0),
-		songPosition_(0.0f), isInitialized_(false)
+		songPosition_(0.0f)
 	{
 	}
 
 	void Conductor::init(float offset, float bpm)
 	{
-		if (!isInitialized_)
-		{
-			isInitialized_ = true;
-			offset_ = offset;
-			bpm_ = bpm;
+		offset_ = offset;
+		bpm_ = bpm;
 
-			crotchet_ = 60.0f / bpm;
-			spdlog::info("Song crotchet = {}", crotchet_);
-		}
+		crotchet_ = 60.0f / bpm;
+		spdlog::info("Song crotchet = {}", crotchet_);
 	}
 
 	bool Conductor::update(float songPosition)

@@ -6,6 +6,7 @@
 #include <spdlog/spdlog.h>
 
 #include <fstream>
+#include <sstream>
 
 namespace nadpher
 {
@@ -18,72 +19,42 @@ namespace nadpher
 
 	bool Beatmap::init(const std::string& folderPath)
 	{
-		std::ifstream beatmapFile(folderPath + "song.beatmap");
+		std::ifstream beatmapFile(folderPath + "song.beatmap", std::ios::in);
 
 		// this is so fucking bad
 		if (beatmapFile.is_open())
 		{
-			bool general = true;
-			std::string line;
-
 			float bpm = 0.0f;
 			float offset = 0.0f;
 			float velocity = 0.0f;
+
+			std::string line;
+			std::string fileString = "";
+
+			// translates file to string
 			while (std::getline(beatmapFile, line))
 			{
-				if (line.empty()) continue;
-
-				if (general)
-				{
-					if (line == "[TIME POSITIONS]")
-					{
-						general = false;
-						continue;
-					}
-
-					auto it = line.find("BPM=");
-					if (it != std::string::npos)
-					{
-						it += line.find('=') + 1;
-						std::string value = line.substr(it);
-						bpm = std::stof(value);
-						continue;
-					}
-
-					it = line.find("VELOCITY=");
-					if (it != std::string::npos)
-					{
-						it += line.find('=') + 1;
-						std::string value = line.substr(it);
-						velocity = std::stof(value);
-						continue;
-					}
-
-					it = line.find("OFFSET=");
-					if (it != std::string::npos)
-					{
-						it += line.find('=') + 1;
-						std::string value = line.substr(it);
-						offset = std::stof(value);
-						continue;
-					}
-				}
-				else
-				{
-					conductor_.init(offset, bpm);
-
-					unsigned int lane;
-					float timePosition;
-					
-					size_t pos = line.find(',') + 1;
-					std::string value = line.substr(0, pos);
-					timePosition = std::stof(value);
-					value = line.substr(pos, 1);
-					lane = std::stoul(value);
-
-					lanes_[lane].addNote({conductor_, timePosition, velocity, lane});
-				}
+				fileString += line + '\n';
 			}
+			fileString_ = fileString;
+			
+			// these are super sketchy
+			size_t pos = fileString.find("BPM=");
+			if (pos != std::string::npos)
+			{
+				// 4 is the length of BPM=
+				bpm = std::stof(fileString.substr(pos + 4, fileString.find('\n')));
+			}
+
+			pos = fileString.find("OFFSET=");
+			if (pos != std::string::npos)
+			{
+				// 7 is the length of OFFSET=
+				offset = std::stof(fileString.substr(pos + 7, fileString.find('\n')));
+			}
+
+			conductor_.init(offset, bpm);
+			loadTimePositions();
 		}
 		else
 		{
@@ -96,8 +67,26 @@ namespace nadpher
 			spdlog::error("Couldn't open song.ogg file in {}", folderPath);
 			return false;
 		}
-
+		
 		return true;
+	}
+
+	void Beatmap::loadTimePositions()
+	{
+		std::stringstream timePositions(fileString_.substr(fileString_.find(']') + 2));
+
+		std::string line;
+		while (std::getline(timePositions, line))
+		{
+			size_t separator = line.find(',');
+			float position = std::stof(line.substr(0, separator));
+			unsigned int lane = std::stoul(line.substr(separator + 1, 1));
+
+			separator = line.find(',', separator + 1);
+			float velocity = std::stof(line.substr(separator + 1));
+
+			lanes_[lane].addNote({ conductor_, position, velocity, lane });
+		}
 	}
 
 	void Beatmap::update()

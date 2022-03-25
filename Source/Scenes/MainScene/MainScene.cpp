@@ -26,34 +26,48 @@ namespace nadpher
 		{
 		case sf::SoundSource::Stopped:
 			ImGui::Begin("Select a song...");
-
 			ImGui::End();
 
 			break;
 
 		case sf::SoundSource::Playing:
 			beatmap_.update();
+
+			if (Input::isKeyDown(sf::Keyboard::Key::Escape))
+			{
+				beatmap_.pause();
+			}
+
 			break;
 
-		default:
+		case sf::SoundSource::Paused:
+			if (Input::isKeyDown(sf::Keyboard::Key::Escape))
+			{
+				beatmap_.play();
+			}
+
 			ImGui::Begin("Paused");
 			if (ImGui::Button("Stop"))
 			{
 				beatmap_.stop();
 			}
 
+			if (ImGui::Button("Retry"))
+			{
+				// TODO: FIX THIS MESS!!!
+				beatmap_.retry();
+			}
+
 			if (ImGui::Button("Resume"))
 			{
-				beatmap_.pause();
+				beatmap_.play();
 			}
 
 			ImGui::End();
 			break;
-		}
 
-		if (Input::isKeyDown(sf::Keyboard::Key::Escape))
-		{
-			beatmap_.pause();
+		default:
+			break;
 		}
 
 		return true;

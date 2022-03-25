@@ -24,19 +24,16 @@ namespace nadpher
 
 		bool init(const std::string& folderPath);
 
-		void play()  { song_.play();  }
-
-		void pause()
+		void retry()
 		{
-			if (song_.getStatus() == sf::SoundSource::Paused)
-			{
-				song_.play();
-			}
-			else
-			{
-				song_.pause();
-			}
- 	    }
+			stop();
+			conductor_.reset();
+
+			loadTimePositions();
+			play();
+		}
+		void play()  { song_.play();  }
+		void pause() { song_.pause(); }
 
 		void stop()  
 		{
@@ -53,6 +50,10 @@ namespace nadpher
 		static constexpr float judgementLinePosition = 500.0f;
 
 	private:
+
+		void loadTimePositions();
+
+		std::string fileString_;
 
 		sf::VertexArray judgementLine_;
 		std::array<Lane, lanesNum> lanes_;

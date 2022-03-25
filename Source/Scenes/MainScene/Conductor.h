@@ -11,7 +11,7 @@ namespace nadpher
 	class Conductor
 	{
 	public:
-		Conductor(float bpm = 120.0f);
+		Conductor();
 
 		void init(float offset, float bpm = 120.0f);
 
@@ -21,9 +21,9 @@ namespace nadpher
 		float getCrotchet() const { return crotchet_; }
 		float getBPM() const { return bpm_; }
 
-	private:
+		void reset() { songPosition_ = 0.0f; }
 
-		bool isInitialized_;
+	private:
 
 		float offset_;
 		float bpm_;
