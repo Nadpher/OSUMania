@@ -25,7 +25,23 @@ namespace nadpher
 		switch (beatmap_.getBeatmapStatus())
 		{
 		case sf::SoundSource::Stopped:
-			ImGui::Begin("Select a song...");
+			ImGui::SetNextWindowPos({ 0, 0 });
+			ImGui::SetNextWindowSize({ 115, 120 });
+			ImGui::Begin("Beatmaps", nullptr,
+				ImGuiWindowFlags_NoCollapse |
+				ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_NoResize |
+				ImGuiWindowFlags_NoScrollbar |
+			    ImGuiWindowFlags_NoTitleBar);
+
+			if (ImGui::Button("Open", {100, 50}))
+			{
+
+			}
+			if (ImGui::Button("Quit", {100, 50}))
+			{
+				return false;
+			}
 			ImGui::End();
 
 			break;
@@ -46,7 +62,14 @@ namespace nadpher
 				beatmap_.play();
 			}
 
-			ImGui::Begin("Paused");
+			ImGui::SetNextWindowPos({ 0, 0 });
+			ImGui::SetNextWindowSize({ 100, 100 });
+			ImGui::Begin("Paused", nullptr, 
+				ImGuiWindowFlags_NoCollapse | 
+				ImGuiWindowFlags_NoMove |
+				ImGuiWindowFlags_NoResize |
+			    ImGuiWindowFlags_NoScrollbar);
+
 			if (ImGui::Button("Stop"))
 			{
 				beatmap_.stop();
@@ -54,7 +77,6 @@ namespace nadpher
 
 			if (ImGui::Button("Retry"))
 			{
-				// TODO: FIX THIS MESS!!!
 				beatmap_.retry();
 			}
 
@@ -75,7 +97,7 @@ namespace nadpher
 
 	void MainScene::end()
 	{
-
+		
 	}
 
 	void MainScene::draw(sf::RenderTarget& target, sf::RenderStates states) const

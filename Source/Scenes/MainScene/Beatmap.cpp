@@ -67,6 +67,7 @@ namespace nadpher
 			spdlog::error("Couldn't open song.ogg file in {}", folderPath);
 			return false;
 		}
+		song_.setVolume(50.0f);
 		
 		return true;
 	}

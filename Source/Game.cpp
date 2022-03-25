@@ -52,7 +52,8 @@ namespace nadpher
 
 			if (!SceneManager::getInstance()->getScene()->update())
 			{
-				SceneManager::getInstance()->getScene()->end();
+				window_.close();
+				break;
 			}
 
 			window_.clear();
@@ -62,7 +63,6 @@ namespace nadpher
 			window_.display();
 		}
 
-		if (window_.isOpen()) window_.close();
 	}
 
 	void Game::handleEvents()
