@@ -19,7 +19,7 @@ namespace nadpher
 
 	bool Beatmap::init(const std::string& folderPath)
 	{
-		std::ifstream beatmapFile(folderPath + "song.beatmap", std::ios::in);
+		std::ifstream beatmapFile(folderPath + "/song.beatmap", std::ios::in);
 
 		// this is so fucking bad
 		if (beatmapFile.is_open())
@@ -62,7 +62,7 @@ namespace nadpher
 			return false;
 		}
 
-		if (!song_.openFromFile(folderPath + "song.ogg"))
+		if (!song_.openFromFile(folderPath + "/song.ogg"))
 		{
 			spdlog::error("Couldn't open song.ogg file in {}", folderPath);
 			return false;

@@ -25,9 +25,9 @@ namespace nadpher
 		static constexpr float perfectTreshold = 0.05f;
 
 	private:
+		void popNote() { notes_.pop_front(); }
 
 		void checkMisses(const Conductor& conductor);
-		void popNote() { notes_.pop_front(); }
 		bool judgeNote(const Conductor& conductor);
 
 		std::deque<Note> notes_;
