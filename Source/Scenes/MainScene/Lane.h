@@ -11,13 +11,12 @@ namespace nadpher
 	{
 	public:
 
-		void update();
+		void update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		void hitNote(const Conductor& conductor);
 		void addNote(const Note& note) { notes_.push_back(note); }
-		bool judgeNote(const Conductor& conductor);
 
-		void popNote() { notes_.pop_front(); }
 		void clear() { notes_.clear(); }
 
 		static constexpr float missTreshold = 0.3f;
@@ -26,6 +25,11 @@ namespace nadpher
 		static constexpr float perfectTreshold = 0.05f;
 
 	private:
+
+		void checkMisses(const Conductor& conductor);
+		void popNote() { notes_.pop_front(); }
+		bool judgeNote(const Conductor& conductor);
+
 		std::deque<Note> notes_;
 	};
 }

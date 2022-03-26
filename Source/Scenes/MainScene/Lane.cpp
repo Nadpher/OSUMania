@@ -5,11 +5,38 @@
 
 namespace nadpher
 {
-	void Lane::update()
+	void Lane::update(const Conductor& conductor)
 	{
 		for (Note& note : notes_)
 		{
 			note.update();
+		}
+
+		checkMisses(conductor);
+	}
+
+	void Lane::checkMisses(const Conductor& conductor)
+	{
+		if (notes_.empty())
+		{
+			return;
+		}
+
+		// miss treshold is divided by 5 to make asymmetrical timings between 
+		// early hits and late hits. ill just keep it a magic constant for now
+		// since this is the only place where it's being used.
+		if (conductor.getSongPosition() - notes_.front().getTimePosition() > missTreshold / 5.0f)
+		{
+			spdlog::info("Missed");
+			popNote();
+		}
+	}
+
+	void Lane::hitNote(const Conductor& conductor)
+	{
+		if (judgeNote(conductor))
+		{
+			popNote();
 		}
 	}
 

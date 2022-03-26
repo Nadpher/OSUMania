@@ -96,40 +96,28 @@ namespace nadpher
 
 		for (Lane& lane : lanes_)
 		{
-			lane.update();
+			lane.update(conductor_);
 		}
 
 		// need to refactor this, beatmap shouldn't call to pop note
 		if (Input::isKeyDown(sf::Keyboard::Z))
 		{
-			if (lanes_[0].judgeNote(conductor_))
-			{
-				lanes_[0].popNote();
-			}
+			lanes_[0].hitNote(conductor_);
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::X))
 		{
-			if (lanes_[1].judgeNote(conductor_))
-			{
-				lanes_[1].popNote();
-			}
+			lanes_[1].hitNote(conductor_);
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::N))
 		{
-			if (lanes_[2].judgeNote(conductor_))
-			{
-				lanes_[2].popNote();
-			}
+			lanes_[2].hitNote(conductor_);
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::M))
 		{
-			if (lanes_[3].judgeNote(conductor_))
-			{
-				lanes_[3].popNote();
-			}			
+			lanes_[3].hitNote(conductor_);
 		}
 	}
 
