@@ -42,6 +42,8 @@ namespace nadpher
 			if (ImGui::Button("Open", {100, 50}))
 			{
 				// sketchy C mem allocation
+
+				// this stops deltatime calculation ............
 				nfdchar_t* outPath = nullptr;
 				nfdresult_t result = NFD_PickFolder(NULL, &outPath);
 				if (result == NFD_OKAY)

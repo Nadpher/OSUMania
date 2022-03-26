@@ -10,9 +10,9 @@ namespace nadpher
 	class Note : public sf::Drawable
 	{
 	public:
-		Note(const Conductor& conductor, float timePosition = 0.0f, float velocity = 1.0f, unsigned int lane = 0);
+		Note(float timePosition = 0.0f, float velocity = 1.0f, unsigned int lane = 0);
 
-		void update();
+		void update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		const float getTimePosition() const { return timePosition_; }

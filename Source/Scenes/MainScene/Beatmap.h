@@ -38,10 +38,7 @@ namespace nadpher
 		void stop()  
 		{
 			song_.stop();
-			for (Lane& lane : lanes_)
-			{
-				lane.clear();
-			}
+			clearLanes();
 		}
 
 		static constexpr unsigned int lanesNum = 4;
@@ -51,6 +48,7 @@ namespace nadpher
 
 	private:
 
+		void clearLanes();
 		void loadTimePositions();
 
 		std::string fileString_;

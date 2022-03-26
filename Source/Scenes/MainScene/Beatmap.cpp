@@ -21,6 +21,9 @@ namespace nadpher
 	{
 		std::ifstream beatmapFile(folderPath + "/song.beatmap", std::ios::in);
 
+		conductor_.reset();
+		clearLanes();
+		
 		// this is so fucking bad
 		if (beatmapFile.is_open())
 		{
@@ -67,9 +70,16 @@ namespace nadpher
 			spdlog::error("Couldn't open song.ogg file in {}", folderPath);
 			return false;
 		}
-		song_.setVolume(50.0f);
 		
 		return true;
+	}
+
+	void Beatmap::clearLanes()
+	{
+		for (Lane& lane : lanes_)
+		{
+			lane.clear();
+		}
 	}
 
 	void Beatmap::loadTimePositions()
@@ -86,7 +96,7 @@ namespace nadpher
 			separator = line.find(',', separator + 1);
 			float velocity = std::stof(line.substr(separator + 1));
 
-			lanes_[lane].addNote({ conductor_, position, velocity, lane });
+			lanes_[lane].addNote({ position, velocity, lane });
 		}
 	}
 

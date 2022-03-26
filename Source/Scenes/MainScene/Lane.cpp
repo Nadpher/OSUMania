@@ -9,7 +9,7 @@ namespace nadpher
 	{
 		for (Note& note : notes_)
 		{
-			note.update();
+			note.update(conductor);
 		}
 
 		checkMisses(conductor);
