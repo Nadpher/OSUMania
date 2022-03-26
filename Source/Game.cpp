@@ -83,7 +83,7 @@ namespace nadpher
 				break;
 
 			case sf::Event::KeyReleased:
-				Input::keysUp_[event.key.code] = false;
+				Input::keysUp_[event.key.code] = true;
 				break;
 
 			default:
