@@ -21,9 +21,6 @@ namespace nadpher
 	{
 		std::ifstream beatmapFile(folderPath + "/song.beatmap", std::ios::in);
 
-		conductor_.reset();
-		clearLanes();
-		
 		// this is so fucking bad
 		if (beatmapFile.is_open())
 		{

@@ -16,10 +16,6 @@ namespace nadpher
 	MainScene::MainScene()
 	{
 		sf::Vector2u bounds = Game::getBounds();
-		if (beatmap_.init("Songs/Test/"))
-		{
-			beatmap_.play();
-		}
 	}
 
 	bool MainScene::update()
