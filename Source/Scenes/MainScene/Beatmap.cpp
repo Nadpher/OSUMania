@@ -111,22 +111,22 @@ namespace nadpher
 		// need to refactor this, beatmap shouldn't call to pop note
 		if (Input::isKeyDown(sf::Keyboard::Z))
 		{
-			score_ += lanes_[0].hitNote(conductor_);
+			score_ += lanes_[0].hitNote(conductor_).score;
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::X))
 		{
-			score_ += lanes_[1].hitNote(conductor_);
+			score_ += lanes_[1].hitNote(conductor_).score;
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::N))
 		{
-			score_ += lanes_[2].hitNote(conductor_);
+			score_ += lanes_[2].hitNote(conductor_).score;
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::M))
 		{
-			score_ += lanes_[3].hitNote(conductor_);
+			score_ += lanes_[3].hitNote(conductor_).score;
 		}
 
 	}

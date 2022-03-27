@@ -11,10 +11,16 @@ namespace nadpher
 	{
 	public:
 
+		struct HitInfo
+		{
+			unsigned int score;
+			bool hit;
+		};
+
 		void update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		unsigned int hitNote(const Conductor& conductor);
+		HitInfo hitNote(const Conductor& conductor);
 		void addNote(const Note& note) { notes_.push_back(note); }
 
 		void clear() { notes_.clear(); }
@@ -28,7 +34,7 @@ namespace nadpher
 		void popNote() { notes_.pop_front(); }
 
 		void checkMisses(const Conductor& conductor);
-		unsigned int judgeNote(const Conductor& conductor);
+		HitInfo judgeNote(const Conductor& conductor);
 
 		std::deque<Note> notes_;
 	};
