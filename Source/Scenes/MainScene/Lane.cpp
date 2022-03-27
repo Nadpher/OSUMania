@@ -1,5 +1,6 @@
 #include "Lane.h"
 #include "Conductor.h"
+#include "Beatmap.h"
 
 #include <spdlog/spdlog.h>
 
@@ -32,46 +33,54 @@ namespace nadpher
 		}
 	}
 
-	void Lane::hitNote(const Conductor& conductor)
+	unsigned int Lane::hitNote(const Conductor& conductor)
 	{
-		if (judgeNote(conductor))
+		unsigned int val = judgeNote(conductor);
+		if (val)
 		{
 			popNote();
 		}
+		// super bad way of fixing this bug
+		else if (val == 1)
+		{
+			popNote();
+			val--;
+		}
+
+		return val;
 	}
 
-	bool Lane::judgeNote(const Conductor& conductor)
+	unsigned int Lane::judgeNote(const Conductor& conductor)
 	{
 		if (notes_.empty())
 		{
-			return false;
+			return 0;
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < perfectTreshold)
 		{
-			spdlog::info("Perfect");
-			return true;
+			spdlog::info(Beatmap::perfectScore);
+			return Beatmap::perfectScore;
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < goodTreshold)
 		{
-			spdlog::info("Good");
-			return true;
+			spdlog::info(Beatmap::goodScore);
+			return Beatmap::goodScore;
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < okTreshold)
 		{
-			spdlog::info("Ok");
-			return true;
+			return Beatmap::okScore;
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < missTreshold)
 		{
-			spdlog::info("Miss");
-			return true;
+			// sketch af
+			return 1;
 		}
 
-		return false;
+		return 0;
 	}
 
 	void Lane::draw(sf::RenderTarget& target, sf::RenderStates states) const

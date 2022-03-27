@@ -37,16 +37,23 @@ namespace nadpher
 
 		void stop()  
 		{
+			score_ = 0;
 			song_.stop();
 			clearLanes();
 		}
 
 		static constexpr unsigned int lanesNum = 4;
 
+		static constexpr unsigned int okScore = 50;
+		static constexpr unsigned int goodScore = 100;
+		static constexpr unsigned int perfectScore = 300;
+
 		static constexpr float laneOffset = 350.0f;
 		static constexpr float judgementLinePosition = 500.0f;
 
 	private:
+
+		unsigned int score_;
 
 		void clearLanes();
 		void loadTimePositions();

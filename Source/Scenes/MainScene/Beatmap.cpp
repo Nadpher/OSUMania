@@ -11,7 +11,8 @@
 namespace nadpher
 {
 	Beatmap::Beatmap()
-		: judgementLine_(sf::LinesStrip, 2)
+		: judgementLine_(sf::LinesStrip, 2),
+		  score_(0)
 	{
 		judgementLine_[0].position = { 0.0f, judgementLinePosition };
 		judgementLine_[1].position = { (float)Game::getBounds().x, judgementLinePosition };
@@ -19,6 +20,7 @@ namespace nadpher
 
 	bool Beatmap::init(const std::string& folderPath)
 	{
+		score_ = 0;
 		std::ifstream beatmapFile(folderPath + "/song.beatmap", std::ios::in);
 
 		// this is so fucking bad
@@ -109,23 +111,24 @@ namespace nadpher
 		// need to refactor this, beatmap shouldn't call to pop note
 		if (Input::isKeyDown(sf::Keyboard::Z))
 		{
-			lanes_[0].hitNote(conductor_);
+			score_ += lanes_[0].hitNote(conductor_);
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::X))
 		{
-			lanes_[1].hitNote(conductor_);
+			score_ += lanes_[1].hitNote(conductor_);
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::N))
 		{
-			lanes_[2].hitNote(conductor_);
+			score_ += lanes_[2].hitNote(conductor_);
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::M))
 		{
-			lanes_[3].hitNote(conductor_);
+			score_ += lanes_[3].hitNote(conductor_);
 		}
+
 	}
 
 	void Beatmap::draw(sf::RenderTarget& target, sf::RenderStates states) const
