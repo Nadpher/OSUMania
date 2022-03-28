@@ -108,7 +108,8 @@ namespace nadpher
 			lane.update(conductor_);
 		}
 
-		// need to refactor this, beatmap shouldn't call to pop note
+		// need to implement system
+		// to convert raw input into high level commands
 		if (Input::isKeyDown(sf::Keyboard::Z))
 		{
 			score_ += lanes_[0].hitNote(conductor_).score;

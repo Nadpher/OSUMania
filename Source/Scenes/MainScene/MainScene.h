@@ -20,6 +20,8 @@ namespace nadpher
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
+
+		bool handleStoppedState();
 		void handlePlayingState();
 		void handlePausedState();
 

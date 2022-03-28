@@ -25,15 +25,10 @@ namespace nadpher
 
 		void clear() { notes_.clear(); }
 
-		static constexpr float missTreshold = 0.3f;
-		static constexpr float okTreshold = 0.2f;
-		static constexpr float goodTreshold = 0.1f;
-		static constexpr float perfectTreshold = 0.05f;
-
 	private:
+
 		void popNote() { notes_.pop_front(); }
 
-		void checkMisses(const Conductor& conductor);
 		HitInfo judgeNote(const Conductor& conductor);
 
 		std::deque<Note> notes_;

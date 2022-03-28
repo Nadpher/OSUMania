@@ -16,10 +16,17 @@ namespace nadpher
 		worldPosition_.x = lane * sprite_.getTextureRect().width + Beatmap::laneOffset;
 	}
 
-	void Note::update(const Conductor& conductor)
+	bool Note::update(const Conductor& conductor)
 	{
 		worldPosition_.y = (conductor.getSongPosition() - timePosition_) * velocity_ + Beatmap::judgementLinePosition;
 		sprite_.setPosition(worldPosition_);
+
+		if (conductor.getSongPosition() - timePosition_ > missTreshold)
+		{
+			return false;
+		}
+
+		return true;
 	}
 
 	void Note::draw(sf::RenderTarget& target, sf::RenderStates states) const

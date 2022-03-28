@@ -22,46 +22,11 @@ namespace nadpher
 	{
 		switch (beatmap_.getBeatmapStatus())
 		{
-		// didn't transfer this state to a diff function cause
-		// i need it to return false when quit is pressed
-		// and i cba to make another bool func
 		case sf::SoundSource::Stopped:
-			ImGui::SetNextWindowPos({ 0, 0 });
-			ImGui::SetNextWindowSize({ 115, 120 });
-			ImGui::Begin("Beatmaps", nullptr,
-				ImGuiWindowFlags_NoCollapse |
-				ImGuiWindowFlags_NoMove |
-				ImGuiWindowFlags_NoResize |
-				ImGuiWindowFlags_NoScrollbar |
-			    ImGuiWindowFlags_NoTitleBar);
-
-			if (ImGui::Button("Open", {100, 50}))
-			{
-				// sketchy C mem allocation
-
-				// this stops deltatime calculation ............
-				nfdchar_t* outPath = nullptr;
-				nfdresult_t result = NFD_PickFolder(NULL, &outPath);
-				if (result == NFD_OKAY)
-				{
-					spdlog::info("Selected beatmap folder: {}", outPath);
-					if (beatmap_.init(outPath))
-					{
-						beatmap_.play();
-					}
-
-					free(outPath);
-				}
-				else if (result != NFD_CANCEL)
-				{
-					spdlog::error(NFD_GetError());
-				}
-			}
-			if (ImGui::Button("Quit", {100, 50}))
+			if (!handleStoppedState())
 			{
 				return false;
 			}
-			ImGui::End();
 			break;
 
 		case sf::SoundSource::Playing:
@@ -75,6 +40,48 @@ namespace nadpher
 		default:
 			break;
 		}
+
+		return true;
+	}
+
+	bool MainScene::handleStoppedState()
+	{
+		ImGui::SetNextWindowPos({ 0, 0 });
+		ImGui::SetNextWindowSize({ 115, 120 });
+		ImGui::Begin("Beatmaps", nullptr,
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoScrollbar |
+			ImGuiWindowFlags_NoTitleBar);
+
+		if (ImGui::Button("Open", { 100, 50 }))
+		{
+			// sketchy C mem allocation
+
+			// this stops deltatime calculation ............
+			nfdchar_t* outPath = nullptr;
+			nfdresult_t result = NFD_PickFolder(NULL, &outPath);
+			if (result == NFD_OKAY)
+			{
+				spdlog::info("Selected beatmap folder: {}", outPath);
+				if (beatmap_.init(outPath))
+				{
+					beatmap_.play();
+				}
+
+				free(outPath);
+			}
+			else if (result != NFD_CANCEL)
+			{
+				spdlog::error(NFD_GetError());
+			}
+		}
+		if (ImGui::Button("Quit", { 100, 50 }))
+		{
+			return false;
+		}
+		ImGui::End();
 
 		return true;
 	}

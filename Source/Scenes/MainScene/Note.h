@@ -12,10 +12,15 @@ namespace nadpher
 	public:
 		Note(float timePosition = 0.0f, float velocity = 1.0f, unsigned int lane = 0);
 
-		void update(const Conductor& conductor);
+		bool update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		const float getTimePosition() const { return timePosition_; }
+
+		static constexpr float missTreshold = 0.15f;
+		static constexpr float okTreshold = 0.1f;
+		static constexpr float goodTreshold = 0.075f;
+		static constexpr float perfectTreshold = 0.05f;
 
 	private:
 
