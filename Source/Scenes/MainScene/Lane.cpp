@@ -37,13 +37,11 @@ namespace nadpher
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < Note::perfectTreshold)
 		{
-			spdlog::info(Beatmap::perfectScore);
 			return { Beatmap::perfectScore, true };
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < Note::goodTreshold)
 		{
-			spdlog::info(Beatmap::goodScore);
 			return { Beatmap::goodScore, true };
 		}
 
