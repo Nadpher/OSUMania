@@ -18,9 +18,9 @@ namespace nadpher
 		const float getTimePosition() const { return timePosition_; }
 
 		static constexpr float missTreshold = 0.15f;
-		static constexpr float okTreshold = 0.1f;
+		static constexpr float okTreshold = 0.125f;
 		static constexpr float goodTreshold = 0.075f;
-		static constexpr float perfectTreshold = 0.05f;
+		static constexpr float perfectTreshold = 0.025f;
 
 	private:
 
