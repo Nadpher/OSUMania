@@ -14,6 +14,7 @@ namespace nadpher
 		{
 			text_.setPosition(position);
 		}
+		void hide() { text_.setFillColor(sf::Color::Transparent); }
 
 		void show(unsigned int score);
 		void update();

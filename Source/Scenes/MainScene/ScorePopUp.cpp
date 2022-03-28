@@ -21,7 +21,7 @@ namespace nadpher
 		}
 		else
 		{
-			text_.setFillColor(sf::Color::Transparent);
+			hide();
 		}
 	}
 

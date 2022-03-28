@@ -39,7 +39,10 @@ namespace nadpher
 		void stop()  
 		{
 			score_ = 0;
+			popUp_.hide();
+
 			song_.stop();
+
 			clearLanes();
 		}
 
