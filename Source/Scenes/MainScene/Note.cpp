@@ -18,9 +18,12 @@ namespace nadpher
 
 	bool Note::update(const Conductor& conductor)
 	{
+		// calculates distance to judgement line based on 
+		// note velocity and song position
 		worldPosition_.y = (conductor.getSongPosition() - timePosition_) * velocity_ + Beatmap::judgementLinePosition;
 		sprite_.setPosition(worldPosition_);
 
+		// handle missed notes
 		if (conductor.getSongPosition() - timePosition_ > missTreshold)
 		{
 			return false;

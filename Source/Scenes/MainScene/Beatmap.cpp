@@ -16,6 +16,9 @@ namespace nadpher
 	{
 		judgementLine_[0].position = { 0.0f, judgementLinePosition };
 		judgementLine_[1].position = { (float)Game::getBounds().x, judgementLinePosition };
+
+		// arbitrary values
+		popUp_.setPosition({ 410.0f, 100.0f });
 	}
 
 	bool Beatmap::init(const std::string& folderPath)
@@ -102,6 +105,9 @@ namespace nadpher
 	void Beatmap::update()
 	{
 		conductor_.update(song_.getPlayingOffset().asSeconds());
+		popUp_.update();
+
+		Lane::HitInfo lastHit = {};
 
 		for (Lane& lane : lanes_)
 		{
@@ -112,22 +118,31 @@ namespace nadpher
 		// to convert raw input into high level commands
 		if (Input::isKeyDown(sf::Keyboard::Z))
 		{
-			score_ += lanes_[0].hitNote(conductor_).score;
+			lastHit = lanes_[0].hitNote(conductor_);
+			score_ += lastHit.score;
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::X))
 		{
-			score_ += lanes_[1].hitNote(conductor_).score;
+			lastHit = lanes_[1].hitNote(conductor_);
+			score_ += lastHit.score;
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::N))
 		{
-			score_ += lanes_[2].hitNote(conductor_).score;
+			lastHit = lanes_[2].hitNote(conductor_);
+			score_ += lastHit.score;
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::M))
 		{
-			score_ += lanes_[3].hitNote(conductor_).score;
+			lastHit = lanes_[3].hitNote(conductor_);
+			score_ += lastHit.score;
+		}
+
+		if (lastHit.hit)
+		{
+			popUp_.show(lastHit.score);
 		}
 
 	}
@@ -140,5 +155,7 @@ namespace nadpher
 		{
 			target.draw(lane);
 		}
+
+		target.draw(popUp_);
 	}
 }

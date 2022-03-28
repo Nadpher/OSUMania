@@ -145,6 +145,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Scenes\MainScene\ScorePopUp.cpp" />
     <ClCompile Include="Source\FontManager.cpp" />
     <ClCompile Include="Source\Input.cpp" />
     <ClCompile Include="Source\Scenes\MainScene\Beatmap.cpp" />
@@ -157,6 +158,7 @@
     <ClCompile Include="Source\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Scenes\MainScene\ScorePopUp.h" />
     <ClInclude Include="Source\FontManager.h" />
     <ClInclude Include="Source\Input.h" />
     <ClInclude Include="Source\Scenes\MainScene\Beatmap.h" />
