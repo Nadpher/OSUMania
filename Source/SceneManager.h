@@ -22,8 +22,25 @@ namespace nadpher
 
 		std::unique_ptr<Scene>& getScene() { return scenes_[currentScene_]; }
 		
-		void resetScene() { scenes_[currentScene_].reset(); }
-		void setScene(unsigned int index) { currentScene_ = index; }
+		// rly ugly and bad
+		void switchScene(unsigned int index) 
+		{ 
+			scenes_.pop_back();
+
+			switch (index)
+			{
+			case MAIN_SCENE_INDEX:
+				scenes_.push_back(std::make_unique<MainScene>());
+				break;
+
+			case PLAYING_SCENE_INDEX:
+				scenes_.push_back(std::make_unique<PlayingScene>("Songs/Test/"));
+				break;
+
+			default:
+				break;
+			}
+		}
 
 	private:
 
@@ -31,7 +48,6 @@ namespace nadpher
 			: currentScene_(0)
 		{
 			scenes_.push_back(std::make_unique<MainScene>());
-			scenes_.push_back(std::make_unique<PlayingScene>());
 		}
 
 		std::vector<std::unique_ptr<Scene>> scenes_;

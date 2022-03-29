@@ -6,9 +6,6 @@
 
 #include "SceneManager.h"
 
-#include "Scenes/MainScene/Note.h"
-
-
 namespace nadpher
 {
 	sf::RenderWindow Game::window_;

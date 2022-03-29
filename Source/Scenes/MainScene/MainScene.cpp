@@ -13,7 +13,7 @@ namespace nadpher
 {
 	MainScene::MainScene()
 	{
-		sf::Vector2u bounds = Game::getBounds();
+
 	}
 
 	bool MainScene::update()
@@ -41,7 +41,7 @@ namespace nadpher
 			if (result == NFD_OKAY)
 			{
 				spdlog::info("Selected beatmap folder: {}", outPath);
-				SceneManager::setScene(PLAYING_SCENE_INDEX);
+				SceneManager::getInstance()->switchScene(PLAYING_SCENE_INDEX);
 
 				free(outPath);
 			}

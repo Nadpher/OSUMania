@@ -10,8 +10,12 @@ namespace nadpher
 	class PlayingScene : public Scene
 	{
 	public:
+		PlayingScene(const char* beatmapPath = "");
 
 		bool update() override;
+		void end() override;
+
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
 		Beatmap beatmap_;
