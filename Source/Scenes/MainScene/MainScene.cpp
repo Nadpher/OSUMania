@@ -46,8 +46,10 @@ namespace nadpher
 
 	bool MainScene::handleStoppedState()
 	{
-		ImGui::SetNextWindowPos({ 0, 0 });
-		ImGui::SetNextWindowSize({ 115, 120 });
+		sf::Vector2u windowsize = Game::getBounds();
+
+		ImGui::SetNextWindowPos(ImVec2(windowsize.x / 2.0f, windowsize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+		ImGui::SetNextWindowSize({ windowsize.x / 10.0f, windowsize.y / 8.0f });
 		ImGui::Begin("Beatmaps", nullptr,
 			ImGuiWindowFlags_NoCollapse |
 			ImGuiWindowFlags_NoMove |
@@ -55,7 +57,9 @@ namespace nadpher
 			ImGuiWindowFlags_NoScrollbar |
 			ImGuiWindowFlags_NoTitleBar);
 
-		if (ImGui::Button("Open", { 100, 50 }))
+		ImGui::SetCursorPos(ImVec2(0.0f, 0.0f));
+		ImGui::BeginGroup();
+		if (ImGui::Button("Open", { windowsize.x / 10.0f, windowsize.y / 16.0f}))
 		{
 			// sketchy C mem allocation
 
@@ -77,10 +81,12 @@ namespace nadpher
 				spdlog::error(NFD_GetError());
 			}
 		}
-		if (ImGui::Button("Quit", { 100, 50 }))
+		if (ImGui::Button("Quit", { windowsize.x / 10.0f, windowsize.y/16.0f}))
 		{
 			return false;
 		}
+		ImGui::EndGroup();	
+
 		ImGui::End();
 
 		return true;

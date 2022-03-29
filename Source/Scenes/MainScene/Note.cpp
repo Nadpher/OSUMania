@@ -13,7 +13,10 @@ namespace nadpher
 	{
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
 
-		worldPosition_.x = lane * sprite_.getTextureRect().width + Beatmap::laneOffset;
+		auto textureSize = sprite_.getTextureRect();
+		sprite_.setOrigin({ textureSize.width/2.0f, textureSize.height/2.0f });
+
+		worldPosition_.x = lane * textureSize.width + Beatmap::laneOffset;
 	}
 
 	bool Note::update(const Conductor& conductor)

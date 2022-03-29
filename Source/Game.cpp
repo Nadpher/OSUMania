@@ -86,6 +86,11 @@ namespace nadpher
 				Input::keysUp_[event.key.code] = true;
 				break;
 
+			case sf::Event::Resized:
+				windowSize_.x = event.size.width;
+				windowSize_.y = event.size.height;
+				break;
+
 			default:
 				break;
 			}
