@@ -27,7 +27,14 @@ namespace nadpher
 
 	void ScorePopUp::show(unsigned int score)
 	{
-		text_.setString(std::to_string(score));
+		if (!score)
+		{
+			text_.setString("Miss");
+		}
+		else
+		{
+			text_.setString(std::to_string(score));
+		}
 
 		timer_ = popUpDuration;
 		text_.setFillColor(sf::Color::White);

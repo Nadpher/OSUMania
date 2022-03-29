@@ -17,7 +17,7 @@ namespace nadpher
 			bool hit;
 		};
 
-		void update(const Conductor& conductor);
+		bool update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		HitInfo hitNote(const Conductor& conductor);

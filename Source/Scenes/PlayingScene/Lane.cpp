@@ -6,15 +6,19 @@
 
 namespace nadpher
 {
-	void Lane::update(const Conductor& conductor)
+	bool Lane::update(const Conductor& conductor)
 	{
+		bool flag = true;
 		for (Note& note : notes_)
 		{
 			if (!note.update(conductor))
 			{
 				popNote();
+				flag = false;
 			}
 		}
+
+		return flag;
 	}
 
 	Lane::HitInfo Lane::hitNote(const Conductor& conductor)

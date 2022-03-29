@@ -111,7 +111,11 @@ namespace nadpher
 
 		for (Lane& lane : lanes_)
 		{
-			lane.update(conductor_);
+			// shows popup on missed notes
+			if (!lane.update(conductor_))
+			{
+				popUp_.show(0);
+			}
 		}
 
 		// need to implement system
