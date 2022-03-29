@@ -24,19 +24,19 @@
     <ClCompile Include="Source\Scenes\MainScene\MainScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scenes\MainScene\Note.cpp">
+    <ClCompile Include="Source\Scenes\PlayingScene\Note.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\TextureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scenes\MainScene\Conductor.cpp">
+    <ClCompile Include="Source\Scenes\PlayingScene\Conductor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scenes\MainScene\Lane.cpp">
+    <ClCompile Include="Source\Scenes\PlayingScene\Lane.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scenes\MainScene\Beatmap.cpp">
+    <ClCompile Include="Source\Scenes\PlayingScene\Beatmap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Input.cpp">
@@ -45,7 +45,10 @@
     <ClCompile Include="Source\FontManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scenes\MainScene\ScorePopUp.cpp">
+    <ClCompile Include="Source\Scenes\PlayingScene\ScorePopUp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scenes\PlayingScene\PlayingScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,19 +65,19 @@
     <ClInclude Include="Source\SceneManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scenes\MainScene\Note.h">
+    <ClInclude Include="Source\Scenes\PlayingScene\Note.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\TextureManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scenes\MainScene\Conductor.h">
+    <ClInclude Include="Source\Scenes\PlayingScene\Conductor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scenes\MainScene\Lane.h">
+    <ClInclude Include="Source\Scenes\PlayingScene\Lane.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scenes\MainScene\Beatmap.h">
+    <ClInclude Include="Source\Scenes\PlayingScene\Beatmap.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Input.h">
@@ -83,7 +86,10 @@
     <ClInclude Include="Source\FontManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Scenes\MainScene\ScorePopUp.h">
+    <ClInclude Include="Source\Scenes\PlayingScene\ScorePopUp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\PlayingScene\PlayingScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

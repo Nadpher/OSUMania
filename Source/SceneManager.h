@@ -6,6 +6,7 @@
 
 #include "Scenes/Scene.h"
 #include "Scenes/MainScene/MainScene.h"
+#include "Scenes/PlayingScene/PlayingScene.h"
 
 namespace nadpher
 {
@@ -20,6 +21,9 @@ namespace nadpher
 		}
 
 		std::unique_ptr<Scene>& getScene() { return scenes_[currentScene_]; }
+		
+		void resetScene() { scenes_[currentScene_].reset(); }
+		void setScene(unsigned int index) { currentScene_ = index; }
 
 	private:
 
@@ -27,6 +31,7 @@ namespace nadpher
 			: currentScene_(0)
 		{
 			scenes_.push_back(std::make_unique<MainScene>());
+			scenes_.push_back(std::make_unique<PlayingScene>());
 		}
 
 		std::vector<std::unique_ptr<Scene>> scenes_;

@@ -3,6 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 
+#define MAIN_SCENE_INDEX 0
+#define PLAYING_SCENE_INDEX 1
+#define EDITOR_SCENE_INDEX 2
+
 namespace nadpher
 {
 	class Scene : public sf::Drawable

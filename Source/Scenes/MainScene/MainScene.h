@@ -3,10 +3,6 @@
 
 #include "../Scene.h"
 
-#include "Beatmap.h"
-
-#include <array>
-
 namespace nadpher
 {
 	class MainScene : public Scene
@@ -14,18 +10,11 @@ namespace nadpher
 	public:
 		MainScene();
 
-		bool update();
-		void end();
+		bool update() override;
+		void end() override;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-	private:
-
-		bool handleStoppedState();
-		void handlePlayingState();
-		void handlePausedState();
-
-		Beatmap beatmap_;
 	};
 }
 

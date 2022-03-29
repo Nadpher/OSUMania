@@ -52,7 +52,7 @@ namespace nadpher
 		static constexpr unsigned int goodScore = 100;
 		static constexpr unsigned int perfectScore = 300;
 
-		static constexpr float laneOffset = 350.0f;
+		static constexpr float laneOffset = 400.0f;
 		static constexpr float judgementLinePosition = 500.0f;
 
 	private:

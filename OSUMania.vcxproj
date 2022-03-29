@@ -145,26 +145,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Scenes\MainScene\ScorePopUp.cpp" />
+    <ClCompile Include="Source\Scenes\PlayingScene\PlayingScene.cpp" />
+    <ClCompile Include="Source\Scenes\PlayingScene\ScorePopUp.cpp" />
     <ClCompile Include="Source\FontManager.cpp" />
     <ClCompile Include="Source\Input.cpp" />
-    <ClCompile Include="Source\Scenes\MainScene\Beatmap.cpp" />
-    <ClCompile Include="Source\Scenes\MainScene\Lane.cpp" />
-    <ClCompile Include="Source\Scenes\MainScene\Conductor.cpp" />
+    <ClCompile Include="Source\Scenes\PlayingScene\Beatmap.cpp" />
+    <ClCompile Include="Source\Scenes\PlayingScene\Lane.cpp" />
+    <ClCompile Include="Source\Scenes\PlayingScene\Conductor.cpp" />
     <ClCompile Include="Source\Scenes\MainScene\MainScene.cpp" />
     <ClCompile Include="Source\Game.cpp" />
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Scenes\MainScene\Note.cpp" />
+    <ClCompile Include="Source\Scenes\PlayingScene\Note.cpp" />
     <ClCompile Include="Source\TextureManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Scenes\MainScene\ScorePopUp.h" />
+    <ClInclude Include="Source\Scenes\PlayingScene\PlayingScene.h" />
+    <ClInclude Include="Source\Scenes\PlayingScene\ScorePopUp.h" />
     <ClInclude Include="Source\FontManager.h" />
     <ClInclude Include="Source\Input.h" />
-    <ClInclude Include="Source\Scenes\MainScene\Beatmap.h" />
-    <ClInclude Include="Source\Scenes\MainScene\Lane.h" />
-    <ClInclude Include="Source\Scenes\MainScene\Conductor.h" />
-    <ClInclude Include="Source\Scenes\MainScene\Note.h" />
+    <ClInclude Include="Source\Scenes\PlayingScene\Beatmap.h" />
+    <ClInclude Include="Source\Scenes\PlayingScene\Lane.h" />
+    <ClInclude Include="Source\Scenes\PlayingScene\Conductor.h" />
+    <ClInclude Include="Source\Scenes\PlayingScene\Note.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\Scenes\MainScene\MainScene.h" />
     <ClInclude Include="Source\Scenes\Scene.h" />
