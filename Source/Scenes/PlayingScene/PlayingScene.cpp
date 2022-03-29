@@ -3,6 +3,8 @@
 
 #include "PlayingScene.h"
 
+#include <imgui.h>
+
 namespace nadpher
 {
 	PlayingScene::PlayingScene(const char* beatmapPath)
@@ -31,12 +33,8 @@ namespace nadpher
 			break;
 
 		case sf::SoundSource::Paused:
-			if (Input::isKeyDown(sf::Keyboard::Escape))
-			{
-				beatmap_.play();
-			}
-
-			break;
+			handlePausedState();
+			break;			
 
 		case sf::SoundSource::Playing:
 			beatmap_.update();
@@ -53,6 +51,38 @@ namespace nadpher
 		}
 
 		return true;
+	}
+
+	void PlayingScene::handlePausedState()
+	{
+		if (Input::isKeyDown(sf::Keyboard::Escape))
+		{
+			beatmap_.play();
+		}
+		ImGuiIO& io = ImGui::GetIO();
+		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+		ImGui::Begin("Paused");
+
+		ImGui::BeginGroup();
+
+		if (ImGui::Button("Stop"))
+		{
+			beatmap_.stop();
+		}
+
+		if (ImGui::Button("Resume"))
+		{
+			beatmap_.play();
+		}
+
+		if (ImGui::Button("Retry"))
+		{
+			beatmap_.retry();
+		}
+
+		ImGui::EndGroup();
+
+		ImGui::End();
 	}
 
 	void PlayingScene::end()

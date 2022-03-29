@@ -18,6 +18,8 @@ namespace nadpher
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 	private:
+		void handlePausedState();
+
 		Beatmap beatmap_;
 	};
 }
