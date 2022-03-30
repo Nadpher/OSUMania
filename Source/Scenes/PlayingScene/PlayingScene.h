@@ -23,6 +23,7 @@ namespace nadpher
 		void handlePausedState();
 
 		Beatmap beatmap_;
+		bool isInitialized_;
 	};
 }
 

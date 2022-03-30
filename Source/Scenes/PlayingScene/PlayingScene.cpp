@@ -8,6 +8,7 @@
 namespace nadpher
 {
 	PlayingScene::PlayingScene(const std::string& beatmapPath)
+		: isInitialized_(false)
 	{
 		if (beatmapPath == "")
 		{
@@ -16,16 +17,22 @@ namespace nadpher
 
 		if (beatmap_.init(beatmapPath))
 		{
+			isInitialized_ = true;
 			beatmap_.play();
 		}
 	}
 
 	bool PlayingScene::update()
 	{
+		if (!isInitialized_)
+		{
+			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
+			return true;
+		}
+
 		switch (beatmap_.getBeatmapStatus())
 		{
 		case sf::SoundSource::Stopped:
-			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
 			break;
 
 		case sf::SoundSource::Paused:
@@ -57,7 +64,11 @@ namespace nadpher
 		}
 		ImGuiIO& io = ImGui::GetIO();
 		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-		ImGui::Begin("Paused");
+		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x/8.0f, io.DisplaySize.y / 4.0f));
+		ImGui::Begin("Paused", nullptr, 
+			ImGuiWindowFlags_NoCollapse |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoMove);
 
 		ImGui::BeginGroup();
 
