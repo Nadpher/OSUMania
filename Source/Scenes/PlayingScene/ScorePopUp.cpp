@@ -15,7 +15,6 @@ namespace nadpher
 		// y Position is an arbitrary value
 		text_.setPosition({ (float)Game::getBounds().x / 2.0f, 100.0f });
 
-		
 	}
 
 	void ScorePopUp::update()

@@ -33,25 +33,7 @@ namespace nadpher
 		ImGui::BeginGroup();
 		if (ImGui::Button("Open", { windowsize.x / 10.0f, windowsize.y / 16.0f }))
 		{
-			// sketchy C mem allocation
-
-			// this stops deltatime calculation ............
-			nfdchar_t* outPath = nullptr;
-			nfdresult_t result = NFD_PickFolder(NULL, &outPath);
-			if (result == NFD_OKAY)
-			{
-				spdlog::info("Selected beatmap folder: {}", outPath);
-
-				std::string path(outPath);
-				path += '/';
-				SceneManager::getInstance()->switchScene(PLAYING_SCENE_INDEX, path);
-
-				free(outPath);
-			}
-			else if (result != NFD_CANCEL)
-			{
-				spdlog::error(NFD_GetError());
-			}
+			openBeatmap();
 		}
 		if (ImGui::Button("Quit", { windowsize.x / 10.0f, windowsize.y / 16.0f }))
 		{
@@ -62,6 +44,29 @@ namespace nadpher
 		ImGui::End();
 
 		return true;
+	}
+
+	void MainScene::openBeatmap()
+	{
+		// sketchy C mem allocation
+
+			// this stops deltatime calculation ............
+		nfdchar_t* outPath = nullptr;
+		nfdresult_t result = NFD_PickFolder(NULL, &outPath);
+		if (result == NFD_OKAY)
+		{
+			spdlog::info("Selected beatmap folder: {}", outPath);
+
+			std::string path(outPath);
+			path += '/';
+			SceneManager::getInstance()->switchScene(PLAYING_SCENE_INDEX, path);
+
+			free(outPath);
+		}
+		else if (result != NFD_CANCEL)
+		{
+			spdlog::error(NFD_GetError());
+		}
 	}
 
 	void MainScene::end()

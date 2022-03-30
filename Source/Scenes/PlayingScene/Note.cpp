@@ -13,10 +13,14 @@ namespace nadpher
 	{
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
 
+		// centers textures on the Y axis and not on the X
+		// to make it easy to center the lanes
 		auto textureSize = sprite_.getTextureRect();
-		sprite_.setOrigin({ textureSize.width/2.0f, textureSize.height/2.0f });
+		sprite_.setOrigin({ 0.0f, textureSize.height/2.0f });
 
-		worldPosition_.x = lane * textureSize.width + Beatmap::laneOffset;
+		// im using -2 to split the 4 lanes into two where the first two lanes
+		// will be -2 and -1 and the next two will be 0 and 1, centering the sprites
+		worldPosition_.x = Game::getBounds().x / 2.0f + (textureSize.width * (static_cast<int>(lane) - 2));
 	}
 
 	bool Note::update(const Conductor& conductor)
