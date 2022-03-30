@@ -10,10 +10,6 @@ namespace nadpher
 	public:
 		ScorePopUp();
 
-		void setPosition(const sf::Vector2f& position)
-		{
-			text_.setPosition(position);
-		}
 		void hide() { text_.setFillColor(sf::Color::Transparent); }
 
 		void show(unsigned int score);

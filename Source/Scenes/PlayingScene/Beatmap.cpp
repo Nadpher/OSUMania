@@ -17,8 +17,6 @@ namespace nadpher
 		judgementLine_[0].position = { 0.0f, judgementLinePosition };
 		judgementLine_[1].position = { (float)Game::getBounds().x, judgementLinePosition };
 
-		// arbitrary values
-		popUp_.setPosition({ 410.0f, 100.0f });
 	}
 
 	bool Beatmap::init(const std::string& folderPath)

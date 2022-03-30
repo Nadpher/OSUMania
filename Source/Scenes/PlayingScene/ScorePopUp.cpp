@@ -11,6 +11,9 @@ namespace nadpher
 		text_.setFont(*FontManager::get("Resource/Fonts/scoreFont.ttf"));
 
 		text_.setCharacterSize(64);
+
+		// y Position is an arbitrary value
+		text_.setPosition({ (float)Game::getBounds().x / 2.0f, 100.0f });
 	}
 
 	void ScorePopUp::update()
@@ -38,6 +41,10 @@ namespace nadpher
 
 		timer_ = popUpDuration;
 		text_.setFillColor(sf::Color::White);
+
+		// center text
+		sf::FloatRect rect = text_.getLocalBounds();
+		text_.setOrigin(rect.left + rect.width / 2.0f, rect.top + rect.height / 2.0f);
 	}
 
 	void ScorePopUp::draw(sf::RenderTarget& target, sf::RenderStates states) const
