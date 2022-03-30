@@ -75,6 +75,7 @@ namespace nadpher
 		if (ImGui::Button("Stop"))
 		{
 			beatmap_.stop();
+			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
 		}
 
 		if (ImGui::Button("Resume"))
