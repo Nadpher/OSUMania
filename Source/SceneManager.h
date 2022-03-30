@@ -23,18 +23,14 @@ namespace nadpher
 		std::unique_ptr<Scene>& getScene() { return scenes_[currentScene_]; }
 		
 		// rly ugly and bad
-		void switchScene(unsigned int index) 
+		void switchScene(unsigned int index, const std::string& beatmap = "")
 		{ 
-			scenes_.pop_back();
+			currentScene_ = index;
 
-			switch (index)
+			switch (currentScene_)
 			{
-			case MAIN_SCENE_INDEX:
-				scenes_.push_back(std::make_unique<MainScene>());
-				break;
-
 			case PLAYING_SCENE_INDEX:
-				scenes_.push_back(std::make_unique<PlayingScene>("Songs/Test/"));
+				scenes_[currentScene_].reset(new PlayingScene(beatmap));
 				break;
 
 			default:
@@ -48,6 +44,7 @@ namespace nadpher
 			: currentScene_(0)
 		{
 			scenes_.push_back(std::make_unique<MainScene>());
+			scenes_.push_back(std::make_unique<PlayingScene>());
 		}
 
 		std::vector<std::unique_ptr<Scene>> scenes_;

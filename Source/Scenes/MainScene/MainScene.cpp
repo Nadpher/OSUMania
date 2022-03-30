@@ -41,7 +41,10 @@ namespace nadpher
 			if (result == NFD_OKAY)
 			{
 				spdlog::info("Selected beatmap folder: {}", outPath);
-				SceneManager::getInstance()->switchScene(PLAYING_SCENE_INDEX);
+
+				std::string path(outPath);
+				path += '/';
+				SceneManager::getInstance()->switchScene(PLAYING_SCENE_INDEX, path);
 
 				free(outPath);
 			}

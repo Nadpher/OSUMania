@@ -7,7 +7,7 @@
 
 namespace nadpher
 {
-	PlayingScene::PlayingScene(const char* beatmapPath)
+	PlayingScene::PlayingScene(const std::string& beatmapPath)
 	{
 		if (beatmapPath == "")
 		{
@@ -17,10 +17,6 @@ namespace nadpher
 		if (beatmap_.init(beatmapPath))
 		{
 			beatmap_.play();
-		}
-		else
-		{
-			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
 		}
 	}
 

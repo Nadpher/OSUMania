@@ -5,12 +5,14 @@
 
 #include "Beatmap.h"
 
+#include <string>
+
 namespace nadpher
 {
 	class PlayingScene : public Scene
 	{
 	public:
-		PlayingScene(const char* beatmapPath = "");
+		PlayingScene(const std::string& beatmapPath = "");
 
 		bool update() override;
 		void end() override;
