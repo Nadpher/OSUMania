@@ -64,30 +64,32 @@ namespace nadpher
 		}
 		ImGuiIO& io = ImGui::GetIO();
 		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x/8.0f, io.DisplaySize.y / 4.0f));
+		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x/8.0f, io.DisplaySize.y / 6.0f));
 		ImGui::Begin("Paused", nullptr, 
 			ImGuiWindowFlags_NoCollapse |
 			ImGuiWindowFlags_NoResize |
-			ImGuiWindowFlags_NoMove);
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoScrollbar |
+			ImGuiWindowFlags_NoScrollWithMouse);
 
 		ImGui::BeginGroup();
 
-		if (ImGui::Button("Stop"))
+		if (ImGui::Button("Stop", ImVec2(io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f / 5.0f)))
 		{
 			beatmap_.stop();
 			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
 		}
 
-		if (ImGui::Button("Resume"))
+		if (ImGui::Button("Resume", ImVec2(io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f / 5.0f)))
 		{
 			beatmap_.play();
 		}
 
-		if (ImGui::Button("Retry"))
+		if (ImGui::Button("Retry", ImVec2(io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f / 5.0f)))
 		{
 			beatmap_.retry();
 		}
-
+		
 		ImGui::EndGroup();
 
 		ImGui::End();

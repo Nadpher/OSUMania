@@ -18,24 +18,41 @@ namespace nadpher
 
 	bool MainScene::update()
 	{
-		sf::Vector2u windowsize = Game::getBounds();
+		if (!drawGui())
+		{
+			return false;
+		}
 
-		ImGui::SetNextWindowPos(ImVec2(windowsize.x / 2.0f, windowsize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-		ImGui::SetNextWindowSize({ windowsize.x / 10.0f, windowsize.y / 8.0f });
+		return true;
+	}
+
+	bool MainScene::drawGui()
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		const float padding = 10.0f;
+
+		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
+		ImGui::SetNextWindowSize({ io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f });
 		ImGui::Begin("Beatmaps", nullptr,
 			ImGuiWindowFlags_NoCollapse |
 			ImGuiWindowFlags_NoMove |
 			ImGuiWindowFlags_NoResize |
 			ImGuiWindowFlags_NoScrollbar |
-			ImGuiWindowFlags_NoTitleBar);
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoScrollWithMouse);
 
-		ImGui::SetCursorPos(ImVec2(0.0f, 0.0f));
+
+		ImVec2 windowSize = ImGui::GetWindowSize();
+
 		ImGui::BeginGroup();
-		if (ImGui::Button("Open", { windowsize.x / 10.0f, windowsize.y / 16.0f }))
+		ImGui::SetCursorPosX(padding);
+		if (ImGui::Button("Open", { windowSize.x - padding * 2.0f, windowSize.y / 2.0f - padding }))
 		{
 			openBeatmap();
 		}
-		if (ImGui::Button("Quit", { windowsize.x / 10.0f, windowsize.y / 16.0f }))
+
+		ImGui::SetCursorPosX(padding);
+		if (ImGui::Button("Quit", { windowSize.x - padding * 2.0f, windowSize.y / 2.0f - padding }))
 		{
 			return false;
 		}
@@ -50,7 +67,7 @@ namespace nadpher
 	{
 		// sketchy C mem allocation
 
-			// this stops deltatime calculation ............
+		// this stops deltatime calculation ............
 		nfdchar_t* outPath = nullptr;
 		nfdresult_t result = NFD_PickFolder(NULL, &outPath);
 		if (result == NFD_OKAY)
