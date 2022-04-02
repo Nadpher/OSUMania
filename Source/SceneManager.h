@@ -7,6 +7,7 @@
 #include "Scenes/Scene.h"
 #include "Scenes/MainScene/MainScene.h"
 #include "Scenes/PlayingScene/PlayingScene.h"
+#include "Scenes/ScoreScene/ScoreScene.h"
 
 namespace nadpher
 {
@@ -23,7 +24,7 @@ namespace nadpher
 		std::unique_ptr<Scene>& getScene() { return scenes_[currentScene_]; }
 		
 		// rly ugly and bad
-		void switchScene(unsigned int index, const std::string& beatmap = "")
+		void switchScene(unsigned int index, const std::string& beatmap = "", const unsigned int score = 0)
 		{ 
 			currentScene_ = index;
 
@@ -31,6 +32,10 @@ namespace nadpher
 			{
 			case PLAYING_SCENE_INDEX:
 				scenes_[currentScene_].reset(new PlayingScene(beatmap));
+				break;
+
+			case SCORE_SCENE_INDEX:
+				scenes_[currentScene_].reset(new ScoreScene(score));
 				break;
 
 			default:
@@ -45,6 +50,7 @@ namespace nadpher
 		{
 			scenes_.push_back(std::make_unique<MainScene>());
 			scenes_.push_back(std::make_unique<PlayingScene>());
+			scenes_.push_back(std::make_unique<ScoreScene>());
 		}
 
 		std::vector<std::unique_ptr<Scene>> scenes_;

@@ -23,6 +23,7 @@ namespace nadpher
 		HitInfo hitNote(const Conductor& conductor);
 		void addNote(const Note& note) { notes_.push_back(note); }
 
+		bool empty() const { return notes_.empty(); }
 		void clear() { notes_.clear(); }
 
 	private:

@@ -30,6 +30,15 @@ namespace nadpher
 			return true;
 		}
 
+		// if there are no more notes to play,
+		// end the song
+		if (beatmap_.empty())
+		{
+			SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
+			beatmap_.stop();
+			return true;
+		}
+
 		switch (beatmap_.getBeatmapStatus())
 		{
 		case sf::SoundSource::Stopped:

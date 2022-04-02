@@ -23,7 +23,21 @@ namespace nadpher
 		void update();
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		unsigned int getScore() const { return score_; }
+
 		bool init(const std::string& folderPath);
+		bool empty()
+		{
+			for (const Lane& lane : lanes_)
+			{
+				if (!lane.empty())
+				{
+					return false;
+				}
+			}
+
+			return true;
+		}
 
 		void retry()
 		{

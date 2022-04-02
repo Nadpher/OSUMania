@@ -51,6 +51,9 @@
     <ClCompile Include="Source\Scenes\PlayingScene\PlayingScene.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scenes\ScoreScene\ScoreScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Game.h">
@@ -90,6 +93,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Scenes\PlayingScene\PlayingScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scenes\ScoreScene\ScoreScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

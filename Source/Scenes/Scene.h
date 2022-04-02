@@ -5,7 +5,8 @@
 
 #define MAIN_SCENE_INDEX 0
 #define PLAYING_SCENE_INDEX 1
-#define EDITOR_SCENE_INDEX 2
+#define SCORE_SCENE_INDEX 2
+#define EDITOR_SCENE_INDEX 3
 
 namespace nadpher
 {
