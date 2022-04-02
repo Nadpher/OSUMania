@@ -6,6 +6,7 @@
 #include "Beatmap.h"
 
 #include <string>
+#include <array>
 
 namespace nadpher
 {
@@ -23,10 +24,15 @@ namespace nadpher
 
 	private:
 		void handlePausedState();
+		bool handlePlayingState();
+
+		void animateGuides();
 
 		float cooldownTimer_;
 
 		Beatmap beatmap_;
+		std::array<sf::Sprite, Beatmap::lanesNum> judgementGuides_;
+
 		bool isInitialized_;
 	};
 }

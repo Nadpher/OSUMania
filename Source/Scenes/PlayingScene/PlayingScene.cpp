@@ -1,6 +1,7 @@
 #include "../../SceneManager.h"
 #include "../../Input.h"
 #include "../../Game.h"
+#include "../../TextureManager.h"
 
 #include "PlayingScene.h"
 
@@ -8,8 +9,10 @@
 
 namespace nadpher
 {
+	// this is all rly cringe
 	PlayingScene::PlayingScene(const std::string& beatmapPath)
-		: isInitialized_(false), cooldownTimer_(0.0f)
+		: isInitialized_(false), cooldownTimer_(0.0f), 
+		  judgementGuides_{}
 	{
 		if (beatmapPath == "")
 		{
@@ -20,6 +23,22 @@ namespace nadpher
 		{
 			isInitialized_ = true;
 			beatmap_.play();
+		}
+
+		sf::Vector2u gameBounds = Game::getBounds();
+		for (int i = 0; i < Beatmap::lanesNum; ++i)
+		{
+			judgementGuides_[i].setTexture(*TextureManager::get("Resource/Textures/note-guides.png"));
+
+			// i - 2 helps center the sprites
+			// 128 is the size of the sprite
+			judgementGuides_[i].setPosition({(float)gameBounds.x / 2.0f + 128 * (i - 2), 
+										     (float)gameBounds.y - Beatmap::judgementLinePosition});
+
+			// centers sprite origin
+			judgementGuides_[i].setOrigin({ 0.0f, 128.0f / 2.0f });
+
+			judgementGuides_[i].setTextureRect(sf::IntRect(i * 128, 0, 128, 128));
 		}
 	}
 
@@ -41,27 +60,7 @@ namespace nadpher
 			break;			
 
 		case sf::SoundSource::Playing:
-			beatmap_.update();
-
-			// if there are no more notes to play,
-			// wait cooldownTime and end the song
-			if (beatmap_.empty())
-			{
-				if (cooldownTimer_ > cooldownTime)
-				{
-					SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
-					beatmap_.stop();
-					return true;
-				}
-
-				cooldownTimer_ += Game::getDeltaTime();
-			}
-
-			if (Input::isKeyDown(sf::Keyboard::Escape))
-			{
-				beatmap_.pause();
-			}
-
+			handlePlayingState();
 			break;
 
 		default:
@@ -69,6 +68,102 @@ namespace nadpher
 		}
 
 		return true;
+	}
+
+	bool PlayingScene::handlePlayingState()
+	{
+		beatmap_.update();
+
+		// if there are no more notes to play,
+		// wait cooldownTime and end the song
+		if (beatmap_.empty())
+		{
+			if (cooldownTimer_ > cooldownTime)
+			{
+				SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
+				beatmap_.stop();
+				return true;
+			}
+
+			cooldownTimer_ += Game::getDeltaTime();
+		}
+
+		if (Input::isKeyDown(sf::Keyboard::Escape))
+		{
+			beatmap_.pause();
+		}
+
+		animateGuides();
+
+		return true;
+	}
+
+	// i hate this
+	void PlayingScene::animateGuides()
+	{
+		if (Input::isKeyDown(sf::Keyboard::Z))
+		{
+			sf::IntRect rect = judgementGuides_[0].getTextureRect();
+			rect.top = 128;
+
+			judgementGuides_[0].setTextureRect(rect);
+		}
+
+		if (Input::isKeyDown(sf::Keyboard::X))
+		{
+			sf::IntRect rect = judgementGuides_[1].getTextureRect();
+			rect.top = 128;
+
+			judgementGuides_[1].setTextureRect(rect);
+		}
+
+		if (Input::isKeyDown(sf::Keyboard::N))
+		{
+			sf::IntRect rect = judgementGuides_[2].getTextureRect();
+			rect.top = 128;
+
+			judgementGuides_[2].setTextureRect(rect);
+		}
+
+		if (Input::isKeyDown(sf::Keyboard::M))
+		{
+			sf::IntRect rect = judgementGuides_[3].getTextureRect();
+			rect.top = 128;
+
+			judgementGuides_[3].setTextureRect(rect);
+		}
+
+		if (Input::isKeyUp(sf::Keyboard::Z))
+		{
+			sf::IntRect rect = judgementGuides_[0].getTextureRect();
+			rect.top = 0;
+
+			judgementGuides_[0].setTextureRect(rect);
+		}
+
+		if (Input::isKeyUp(sf::Keyboard::X))
+		{
+			sf::IntRect rect = judgementGuides_[1].getTextureRect();
+			rect.top = 0;
+
+			judgementGuides_[1].setTextureRect(rect);
+		}
+
+		if (Input::isKeyUp(sf::Keyboard::N))
+		{
+			sf::IntRect rect = judgementGuides_[2].getTextureRect();
+			rect.top = 0;
+
+			judgementGuides_[2].setTextureRect(rect);
+		}
+
+		if (Input::isKeyUp(sf::Keyboard::M))
+		{
+			sf::IntRect rect = judgementGuides_[3].getTextureRect();
+			rect.top = 0;
+
+			judgementGuides_[3].setTextureRect(rect);
+		}
 	}
 
 	void PlayingScene::handlePausedState()
@@ -117,6 +212,11 @@ namespace nadpher
 
 	void PlayingScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
+		for (int i = 0; i < Beatmap::lanesNum; ++i)
+		{
+			target.draw(judgementGuides_[i]);
+		}
+
 		target.draw(beatmap_);
 	}
 }

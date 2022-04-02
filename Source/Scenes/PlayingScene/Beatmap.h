@@ -76,7 +76,6 @@ namespace nadpher
 		void loadTimePositions();
 
 		std::string fileString_;
-		sf::VertexArray judgementLine_;
 		std::array<Lane, lanesNum> lanes_;
 
 		// should probably move this to conductor

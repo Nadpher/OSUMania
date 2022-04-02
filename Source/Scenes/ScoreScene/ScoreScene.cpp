@@ -12,7 +12,7 @@ namespace nadpher
 	{
 		scoreText_.setFont(*FontManager::get("Resource/Fonts/regularFont.ttf"));
 
-		std::string scoreString("Score:\n");
+		std::string scoreString("Score: ");
 		scoreString += std::to_string(score);
 
 		scoreText_.setString(scoreString);

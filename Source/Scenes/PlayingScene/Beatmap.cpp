@@ -11,13 +11,9 @@
 namespace nadpher
 {
 	Beatmap::Beatmap()
-		: judgementLine_(sf::LinesStrip, 2),
-		  score_(0)
+		  : score_(0)
 	{
 		sf::Vector2u gameBounds = Game::getBounds();
-
-		judgementLine_[0].position = { 0.0f,                (float)gameBounds.y - judgementLinePosition };
-		judgementLine_[1].position = { (float)gameBounds.x, (float)gameBounds.y - judgementLinePosition };
 
 	}
 
@@ -160,7 +156,6 @@ namespace nadpher
 
 	void Beatmap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(judgementLine_);
 
 		for (const Lane& lane : lanes_)
 		{
