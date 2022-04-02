@@ -19,8 +19,12 @@ namespace nadpher
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		static constexpr float cooldownTime = 2.0f;
+
 	private:
 		void handlePausedState();
+
+		float cooldownTimer_;
 
 		Beatmap beatmap_;
 		bool isInitialized_;

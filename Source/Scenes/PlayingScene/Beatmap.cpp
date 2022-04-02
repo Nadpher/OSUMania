@@ -14,8 +14,10 @@ namespace nadpher
 		: judgementLine_(sf::LinesStrip, 2),
 		  score_(0)
 	{
-		judgementLine_[0].position = { 0.0f, judgementLinePosition };
-		judgementLine_[1].position = { (float)Game::getBounds().x, judgementLinePosition };
+		sf::Vector2u gameBounds = Game::getBounds();
+
+		judgementLine_[0].position = { 0.0f,                (float)gameBounds.y - judgementLinePosition };
+		judgementLine_[1].position = { (float)gameBounds.x, (float)gameBounds.y - judgementLinePosition };
 
 	}
 
@@ -104,6 +106,13 @@ namespace nadpher
 	{
 		conductor_.update(song_.getPlayingOffset().asSeconds());
 		popUp_.update();
+
+		if (empty())
+		{
+			static float newVolume = song_.getVolume() / 2.0f;
+			song_.setVolume(newVolume);
+			return;
+		}
 
 		Lane::HitInfo lastHit = {};
 

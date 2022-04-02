@@ -11,7 +11,10 @@ namespace nadpher
 		: timePosition_(timePosition), velocity_(velocity), lane_(lane),
 		worldPosition_{}, sprite_{}
 	{
-		sprite_.setTexture(*TextureManager::get("Resource/Textures/note.png"));
+		sprite_.setTexture(*TextureManager::get("Resource/Textures/notes.png"));
+
+		// 128 is the size of each arrow
+		sprite_.setTextureRect(sf::IntRect(lane * 128, 0, 128, 128));
 
 		// centers textures on the Y axis and not on the X
 		// to make it easy to center the lanes
@@ -27,7 +30,7 @@ namespace nadpher
 	{
 		// calculates distance to judgement line based on 
 		// note velocity and song position
-		worldPosition_.y = (conductor.getSongPosition() - timePosition_) * velocity_ + Beatmap::judgementLinePosition;
+		worldPosition_.y = (conductor.getSongPosition() - timePosition_) * velocity_ + (float)Game::getBounds().y - Beatmap::judgementLinePosition;
 		sprite_.setPosition(worldPosition_);
 
 		// handle missed notes

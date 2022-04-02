@@ -1,5 +1,6 @@
 #include "../../SceneManager.h"
 #include "../../Input.h"
+#include "../../Game.h"
 
 #include "PlayingScene.h"
 
@@ -8,7 +9,7 @@
 namespace nadpher
 {
 	PlayingScene::PlayingScene(const std::string& beatmapPath)
-		: isInitialized_(false)
+		: isInitialized_(false), cooldownTimer_(0.0f)
 	{
 		if (beatmapPath == "")
 		{
@@ -30,15 +31,6 @@ namespace nadpher
 			return true;
 		}
 
-		// if there are no more notes to play,
-		// end the song
-		if (beatmap_.empty())
-		{
-			SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
-			beatmap_.stop();
-			return true;
-		}
-
 		switch (beatmap_.getBeatmapStatus())
 		{
 		case sf::SoundSource::Stopped:
@@ -50,6 +42,20 @@ namespace nadpher
 
 		case sf::SoundSource::Playing:
 			beatmap_.update();
+
+			// if there are no more notes to play,
+			// wait cooldownTime and end the song
+			if (beatmap_.empty())
+			{
+				if (cooldownTimer_ > cooldownTime)
+				{
+					SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
+					beatmap_.stop();
+					return true;
+				}
+
+				cooldownTimer_ += Game::getDeltaTime();
+			}
 
 			if (Input::isKeyDown(sf::Keyboard::Escape))
 			{

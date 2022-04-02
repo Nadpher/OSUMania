@@ -18,12 +18,7 @@ namespace nadpher
 
 	bool MainScene::update()
 	{
-		if (!drawGui())
-		{
-			return false;
-		}
-
-		return true;
+		return drawGui();
 	}
 
 	bool MainScene::drawGui()
@@ -46,7 +41,7 @@ namespace nadpher
 
 		ImGui::BeginGroup();
 		ImGui::SetCursorPosX(padding);
-		if (ImGui::Button("Open", { windowSize.x - padding * 2.0f, windowSize.y / 2.0f - padding }))
+		if (ImGui::Button("Play", { windowSize.x - padding * 2.0f, windowSize.y / 2.0f - padding }))
 		{
 			openBeatmap();
 		}

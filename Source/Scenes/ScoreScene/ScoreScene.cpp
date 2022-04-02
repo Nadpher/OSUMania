@@ -31,7 +31,7 @@ namespace nadpher
 		ImGuiIO& io = ImGui::GetIO();
 
 		ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
-		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x / 4.0f, io.DisplaySize.y / 2.0f));
+		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x / 4.0f, io.DisplaySize.y / 4.0f));
 		ImGui::Begin("help", nullptr,
 			ImGuiWindowFlags_NoResize |
 			ImGuiWindowFlags_NoScrollbar |
