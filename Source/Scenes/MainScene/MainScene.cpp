@@ -27,7 +27,7 @@ namespace nadpher
 		const float padding = 10.0f;
 
 		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
-		ImGui::SetNextWindowSize({ io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f });
+		ImGui::SetNextWindowSize({ io.DisplaySize.x / 4.0f, io.DisplaySize.y / 6.0f });
 		ImGui::Begin("Beatmaps", nullptr,
 			ImGuiWindowFlags_NoCollapse |
 			ImGuiWindowFlags_NoMove |

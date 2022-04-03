@@ -140,6 +140,7 @@ namespace nadpher
 		{
 			beatmap_.play();
 		}
+
 		ImGuiIO& io = ImGui::GetIO();
 		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x/8.0f, io.DisplaySize.y / 6.0f));
@@ -152,18 +153,19 @@ namespace nadpher
 
 		ImGui::BeginGroup();
 
-		if (ImGui::Button("Stop", ImVec2(io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f / 5.0f)))
+		ImVec2 windowSize = ImGui::GetWindowSize();
+		if (ImGui::Button("Stop", ImVec2(windowSize.x, windowSize.y / 5.0f)))
 		{
 			beatmap_.stop();
 			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
 		}
 
-		if (ImGui::Button("Resume", ImVec2(io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f / 5.0f)))
+		if (ImGui::Button("Resume", ImVec2(windowSize.x, windowSize.y / 5.0f)))
 		{
 			beatmap_.play();
 		}
 
-		if (ImGui::Button("Retry", ImVec2(io.DisplaySize.x / 8.0f, io.DisplaySize.y / 6.0f / 5.0f)))
+		if (ImGui::Button("Retry", ImVec2(windowSize.x, windowSize.y / 5.0f)))
 		{
 			beatmap_.retry();
 		}
