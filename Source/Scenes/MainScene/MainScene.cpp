@@ -26,29 +26,6 @@ namespace nadpher
 		ImGuiIO& io = ImGui::GetIO();
 		const float padding = 10.0f;
 
-		if (ImGui::BeginMainMenuBar())
-		{
-			if (ImGui::BeginMenu("Options"))
-			{
-				if (ImGui::MenuItem("Songs folder"))
-				{
-					ImGui::OpenPopup("songs-folder");
-				}
-
-				ImGui::EndMenu();
-			}
-
-			ImGui::EndMainMenuBar();
-		}
-
-		if (ImGui::BeginPopup("songs-folder"))
-		{
-			static char str[128];
-			ImGui::InputText("folder: ", str, 128);
-
-			ImGui::EndPopup();
-		}
-
 		ImGui::SetNextWindowPos(ImVec2(io.DisplaySize.x / 2.0f, io.DisplaySize.y / 2.0f), ImGuiCond_Always, ImVec2(0.5f, 0.5f));
 		ImGui::SetNextWindowSize({ io.DisplaySize.x / 4.0f, io.DisplaySize.y / 4.0f });
 		ImGui::Begin("Beatmaps", nullptr,
@@ -58,7 +35,6 @@ namespace nadpher
 			ImGuiWindowFlags_NoScrollbar |
 			ImGuiWindowFlags_NoTitleBar |
 			ImGuiWindowFlags_NoScrollWithMouse);
-
 
 		ImVec2 windowSize = ImGui::GetWindowSize();
 
