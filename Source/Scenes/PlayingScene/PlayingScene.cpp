@@ -72,7 +72,13 @@ namespace nadpher
 
 	bool PlayingScene::handlePlayingState()
 	{
-		beatmap_.update();
+		popUp_.update();
+
+		Note::HitInfo info = beatmap_.update();
+		if (info.hit)
+		{
+			popUp_.show(info.score);
+		}
 
 		// if there are no more notes to play,
 		// wait cooldownTime and end the song
@@ -188,5 +194,7 @@ namespace nadpher
 		}
 
 		target.draw(beatmap_);
+
+		target.draw(popUp_);
 	}
 }

@@ -14,7 +14,6 @@ namespace nadpher
 		  : score_(0)
 	{
 		sf::Vector2u gameBounds = Game::getBounds();
-
 	}
 
 	bool Beatmap::init(const std::string& folderPath)
@@ -98,26 +97,25 @@ namespace nadpher
 		}
 	}
 
-	void Beatmap::update()
+	Note::HitInfo Beatmap::update()
 	{
 		conductor_.update(song_.getPlayingOffset().asSeconds());
-		popUp_.update();
 
 		if (empty())
 		{
 			static float newVolume = song_.getVolume() / 2.0f;
 			song_.setVolume(newVolume);
-			return;
+			return { false, 0 };
 		}
 
-		Lane::HitInfo lastHit = {};
+		Note::HitInfo lastHit = { false, 0 };
 
+		// missed notes
 		for (Lane& lane : lanes_)
 		{
-			// shows popup on missed notes
-			if (!lane.update(conductor_))
+			if (lane.update(conductor_))
 			{
-				popUp_.show(0);
+				lastHit.hit = true;
 			}
 		}
 
@@ -147,21 +145,14 @@ namespace nadpher
 			score_ += lastHit.score;
 		}
 
-		if (lastHit.hit)
-		{
-			popUp_.show(lastHit.score);
-		}
-
+		return lastHit;
 	}
 
 	void Beatmap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-
 		for (const Lane& lane : lanes_)
 		{
 			target.draw(lane);
 		}
-
-		target.draw(popUp_);
 	}
 }

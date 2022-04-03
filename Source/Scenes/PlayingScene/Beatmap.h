@@ -9,7 +9,6 @@
 
 #include "Conductor.h"
 #include "Lane.h"
-#include "ScorePopUp.h"
 
 namespace nadpher
 {
@@ -20,7 +19,7 @@ namespace nadpher
 
 		sf::SoundSource::Status getBeatmapStatus() const { return song_.getStatus(); }
 
-		void update();
+		Note::HitInfo update();
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		unsigned int getScore() const { return score_; }
@@ -53,18 +52,12 @@ namespace nadpher
 		void stop()  
 		{
 			score_ = 0;
-			popUp_.hide();
-
 			song_.stop();
 
 			clearLanes();
 		}
 
 		static constexpr unsigned int lanesNum = 4;
-
-		static constexpr unsigned int okScore = 50;
-		static constexpr unsigned int goodScore = 100;
-		static constexpr unsigned int perfectScore = 300;
 
 		static constexpr float judgementLinePosition = 200.0f;
 
@@ -81,7 +74,6 @@ namespace nadpher
 		// should probably move this to conductor
 		sf::Music song_;
 
-		ScorePopUp popUp_;
 		Conductor conductor_;
 	};
 }

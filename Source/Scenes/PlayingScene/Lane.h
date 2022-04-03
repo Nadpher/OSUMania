@@ -10,17 +10,11 @@ namespace nadpher
 	class Lane : public sf::Drawable
 	{
 	public:
-
-		struct HitInfo
-		{
-			unsigned int score;
-			bool hit;
-		};
-
+		
 		bool update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		HitInfo hitNote(const Conductor& conductor);
+		Note::HitInfo hitNote(const Conductor& conductor);
 		void addNote(const Note& note) { notes_.push_back(note); }
 
 		bool empty() const { return notes_.empty(); }
@@ -30,7 +24,7 @@ namespace nadpher
 
 		void popNote() { notes_.pop_front(); }
 
-		HitInfo judgeNote(const Conductor& conductor);
+		Note::HitInfo judgeNote(const Conductor& conductor);
 
 		std::deque<Note> notes_;
 	};

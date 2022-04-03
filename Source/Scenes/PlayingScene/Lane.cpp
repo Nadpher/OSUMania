@@ -1,6 +1,5 @@
 #include "Lane.h"
 #include "Conductor.h"
-#include "Beatmap.h"
 
 #include <spdlog/spdlog.h>
 
@@ -8,22 +7,22 @@ namespace nadpher
 {
 	bool Lane::update(const Conductor& conductor)
 	{
-		bool flag = true;
+		bool flag = false;
 		for (Note& note : notes_)
 		{
 			if (!note.update(conductor))
 			{
 				popNote();
-				flag = false;
+				flag = true;
 			}
 		}
 
 		return flag;
 	}
 
-	Lane::HitInfo Lane::hitNote(const Conductor& conductor)
+	Note::HitInfo Lane::hitNote(const Conductor& conductor)
 	{
-		HitInfo val = judgeNote(conductor);
+		Note::HitInfo val = judgeNote(conductor);
 		if (val.hit)
 		{
 			popNote();
@@ -32,7 +31,7 @@ namespace nadpher
 		return val;
 	}
 
-	Lane::HitInfo Lane::judgeNote(const Conductor& conductor)
+	Note::HitInfo Lane::judgeNote(const Conductor& conductor)
 	{
 		if (notes_.empty())
 		{
@@ -41,17 +40,17 @@ namespace nadpher
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < Note::perfectTreshold)
 		{
-			return { Beatmap::perfectScore, true };
+			return { Note::perfectScore, true };
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < Note::goodTreshold)
 		{
-			return { Beatmap::goodScore, true };
+			return { Note::goodScore, true };
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < Note::okTreshold)
 		{
-			return { Beatmap::okScore, true };
+			return { Note::okScore, true };
 		}
 
 		if (std::abs(notes_.front().getTimePosition() - conductor.getSongPosition()) < Note::missTreshold)

@@ -4,6 +4,7 @@
 #include "../Scene.h"
 
 #include "Beatmap.h"
+#include "ScorePopUp.h"
 
 #include <string>
 #include <array>
@@ -31,6 +32,7 @@ namespace nadpher
 		float cooldownTimer_;
 
 		Beatmap beatmap_;
+		ScorePopUp popUp_;
 		std::array<sf::Sprite, Beatmap::lanesNum> judgementGuides_;
 
 		bool isInitialized_;

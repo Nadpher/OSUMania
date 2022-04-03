@@ -12,10 +12,20 @@ namespace nadpher
 	public:
 		Note(float timePosition = 0.0f, float velocity = 1.0f, unsigned int lane = 0);
 
+		struct HitInfo
+		{
+			unsigned int score;
+			bool hit;
+		};
+
 		bool update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		const float getTimePosition() const { return timePosition_; }
+
+		static constexpr unsigned int okScore = 50;
+		static constexpr unsigned int goodScore = 100;
+		static constexpr unsigned int perfectScore = 300;
 
 		static constexpr float missTreshold = 0.1f;
 		static constexpr float okTreshold = 0.075f;
