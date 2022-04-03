@@ -101,14 +101,14 @@ namespace nadpher
 	{
 		conductor_.update(song_.getPlayingOffset().asSeconds());
 
+		Note::HitInfo lastHit = { false, 0 };
+
 		if (empty())
 		{
 			static float newVolume = song_.getVolume() / 2.0f;
 			song_.setVolume(newVolume);
-			return { false, 0 };
+			return lastHit;
 		}
-
-		Note::HitInfo lastHit = { false, 0 };
 
 		// missed notes
 		for (Lane& lane : lanes_)

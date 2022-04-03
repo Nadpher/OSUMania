@@ -15,6 +15,8 @@ namespace nadpher
 	{
 	public:
 
+		static constexpr float transDuration = 2.0f;
+
 		static SceneManager* getInstance()
 		{
 			static SceneManager* instance = new SceneManager;

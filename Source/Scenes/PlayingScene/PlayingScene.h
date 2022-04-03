@@ -29,8 +29,6 @@ namespace nadpher
 
 		void animateGuides();
 
-		float cooldownTimer_;
-
 		Beatmap beatmap_;
 		ScorePopUp popUp_;
 		std::array<sf::Sprite, Beatmap::lanesNum> judgementGuides_;

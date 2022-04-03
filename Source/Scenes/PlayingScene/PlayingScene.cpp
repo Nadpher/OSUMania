@@ -11,8 +11,7 @@ namespace nadpher
 {
 	// this is all rly cringe
 	PlayingScene::PlayingScene(const std::string& beatmapPath)
-		: isInitialized_(false), cooldownTimer_(0.0f), 
-		  judgementGuides_{}
+		: isInitialized_(false), judgementGuides_{}
 	{
 		if (beatmapPath == "")
 		{
@@ -31,13 +30,11 @@ namespace nadpher
 			judgementGuides_[i].setTexture(*TextureManager::get("Resource/Textures/note-guides.png"));
 
 			// i - 2 helps center the sprites
-			// 128 is the size of the sprite
 			judgementGuides_[i].setPosition({static_cast<float>(gameBounds.x) / 2.0f + static_cast<float>(Note::noteSize) * (i - 2), 
 										     static_cast<float>(gameBounds.y) - Beatmap::judgementLinePosition});
 
 			// centers sprite origin
 			judgementGuides_[i].setOrigin({ 0.0f, static_cast<float>(Note::noteSize) / 2.0f });
-
 			judgementGuides_[i].setTextureRect(sf::IntRect(i * Note::noteSize, 0, Note::noteSize, Note::noteSize));
 		}
 	}
@@ -81,17 +78,12 @@ namespace nadpher
 		}
 
 		// if there are no more notes to play,
-		// wait cooldownTime and end the song
+		// end the song
 		if (beatmap_.empty())
 		{
-			if (cooldownTimer_ > cooldownTime)
-			{
-				SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
-				beatmap_.stop();
-				return true;
-			}
-
-			cooldownTimer_ += Game::getDeltaTime();
+			SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
+			beatmap_.stop();
+			return true;
 		}
 
 		if (Input::isKeyDown(sf::Keyboard::Escape))
@@ -163,6 +155,7 @@ namespace nadpher
 		if (ImGui::Button("Stop", ImVec2(windowSize.x, windowSize.y / 5.0f)))
 		{
 			beatmap_.stop();
+			
 			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
 		}
 
