@@ -32,13 +32,13 @@ namespace nadpher
 
 			// i - 2 helps center the sprites
 			// 128 is the size of the sprite
-			judgementGuides_[i].setPosition({(float)gameBounds.x / 2.0f + 128 * (i - 2), 
-										     (float)gameBounds.y - Beatmap::judgementLinePosition});
+			judgementGuides_[i].setPosition({static_cast<float>(gameBounds.x) / 2.0f + static_cast<float>(Note::noteSize) * (i - 2), 
+										     static_cast<float>(gameBounds.y) - Beatmap::judgementLinePosition});
 
 			// centers sprite origin
-			judgementGuides_[i].setOrigin({ 0.0f, 128.0f / 2.0f });
+			judgementGuides_[i].setOrigin({ 0.0f, static_cast<float>(Note::noteSize) / 2.0f });
 
-			judgementGuides_[i].setTextureRect(sf::IntRect(i * 128, 0, 128, 128));
+			judgementGuides_[i].setTextureRect(sf::IntRect(i * Note::noteSize, 0, Note::noteSize, Note::noteSize));
 		}
 	}
 
@@ -98,72 +98,40 @@ namespace nadpher
 		return true;
 	}
 
-	// i hate this
 	void PlayingScene::animateGuides()
 	{
-		if (Input::isKeyDown(sf::Keyboard::Z))
+		if (Input::isKeyDown(sf::Keyboard::Z) || Input::isKeyUp(sf::Keyboard::Z))
 		{
 			sf::IntRect rect = judgementGuides_[0].getTextureRect();
-			rect.top = 128;
+			rect.top = std::abs(rect.top - static_cast<int>(Note::noteSize));
 
 			judgementGuides_[0].setTextureRect(rect);
 		}
 
-		if (Input::isKeyDown(sf::Keyboard::X))
+		if (Input::isKeyDown(sf::Keyboard::X) || Input::isKeyUp(sf::Keyboard::X))
 		{
 			sf::IntRect rect = judgementGuides_[1].getTextureRect();
-			rect.top = 128;
+			rect.top = std::abs(rect.top - static_cast<int>(Note::noteSize));
 
 			judgementGuides_[1].setTextureRect(rect);
 		}
 
-		if (Input::isKeyDown(sf::Keyboard::N))
+		if (Input::isKeyDown(sf::Keyboard::N) || Input::isKeyUp(sf::Keyboard::N))
 		{
 			sf::IntRect rect = judgementGuides_[2].getTextureRect();
-			rect.top = 128;
+			rect.top = std::abs(rect.top - static_cast<int>(Note::noteSize));
 
 			judgementGuides_[2].setTextureRect(rect);
 		}
 
-		if (Input::isKeyDown(sf::Keyboard::M))
+		if (Input::isKeyDown(sf::Keyboard::M) || Input::isKeyUp(sf::Keyboard::M))
 		{
 			sf::IntRect rect = judgementGuides_[3].getTextureRect();
-			rect.top = 128;
+			rect.top = std::abs(rect.top - static_cast<int>(Note::noteSize));
 
 			judgementGuides_[3].setTextureRect(rect);
 		}
 
-		if (Input::isKeyUp(sf::Keyboard::Z))
-		{
-			sf::IntRect rect = judgementGuides_[0].getTextureRect();
-			rect.top = 0;
-
-			judgementGuides_[0].setTextureRect(rect);
-		}
-
-		if (Input::isKeyUp(sf::Keyboard::X))
-		{
-			sf::IntRect rect = judgementGuides_[1].getTextureRect();
-			rect.top = 0;
-
-			judgementGuides_[1].setTextureRect(rect);
-		}
-
-		if (Input::isKeyUp(sf::Keyboard::N))
-		{
-			sf::IntRect rect = judgementGuides_[2].getTextureRect();
-			rect.top = 0;
-
-			judgementGuides_[2].setTextureRect(rect);
-		}
-
-		if (Input::isKeyUp(sf::Keyboard::M))
-		{
-			sf::IntRect rect = judgementGuides_[3].getTextureRect();
-			rect.top = 0;
-
-			judgementGuides_[3].setTextureRect(rect);
-		}
 	}
 
 	void PlayingScene::handlePausedState()

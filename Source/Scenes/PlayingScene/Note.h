@@ -22,6 +22,8 @@ namespace nadpher
 		static constexpr float goodTreshold = 0.050f;
 		static constexpr float perfectTreshold = 0.025f;
 
+		static constexpr unsigned int noteSize = 128;
+
 	private:
 
 		const size_t lane_;
