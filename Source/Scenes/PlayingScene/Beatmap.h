@@ -6,9 +6,10 @@
 
 #include <string>
 #include <array>
+#include <deque>
 
 #include "Conductor.h"
-#include "Lane.h"
+#include "Note.h"
 
 namespace nadpher
 {
@@ -24,19 +25,10 @@ namespace nadpher
 
 		unsigned int getScore() const { return score_; }
 
-		bool init(const std::string& folderPath);
-		bool empty()
-		{
-			for (const Lane& lane : lanes_)
-			{
-				if (!lane.empty())
-				{
-					return false;
-				}
-			}
+		bool readFromDisk(const std::string& folderPath);
+		// bool writeToDisk();
 
-			return true;
-		}
+		bool empty() { return notes_.empty(); }
 
 		void retry()
 		{
@@ -54,7 +46,7 @@ namespace nadpher
 			score_ = 0;
 			song_.stop();
 
-			clearLanes();
+			notes_.clear();
 		}
 
 		static constexpr unsigned int lanesNum = 4;
@@ -65,11 +57,11 @@ namespace nadpher
 
 		unsigned int score_;
 
-		void clearLanes();
 		void loadTimePositions();
 
+		std::deque<Note> notes_;
+
 		std::string fileString_;
-		std::array<Lane, lanesNum> lanes_;
 
 		// should probably move this to conductor
 		sf::Music song_;

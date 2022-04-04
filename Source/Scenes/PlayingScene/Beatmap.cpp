@@ -16,7 +16,7 @@ namespace nadpher
 		sf::Vector2u gameBounds = Game::getBounds();
 	}
 
-	bool Beatmap::init(const std::string& folderPath)
+	bool Beatmap::readFromDisk(const std::string& folderPath)
 	{
 		score_ = 0;
 		std::ifstream beatmapFile(folderPath + "/song.beatmap", std::ios::in);
@@ -71,14 +71,6 @@ namespace nadpher
 		return true;
 	}
 
-	void Beatmap::clearLanes()
-	{
-		for (Lane& lane : lanes_)
-		{
-			lane.clear();
-		}
-	}
-
 	void Beatmap::loadTimePositions()
 	{
 		std::stringstream timePositions(fileString_.substr(fileString_.find(']') + 2));
@@ -93,7 +85,7 @@ namespace nadpher
 			separator = line.find(',', separator + 1);
 			float velocity = std::stof(line.substr(separator + 1));
 
-			lanes_[lane].addNote({ position, velocity, lane });
+			notes_.push_back({ position, velocity, lane });
 		}
 	}
 
@@ -111,17 +103,18 @@ namespace nadpher
 		}
 
 		// missed notes
-		for (Lane& lane : lanes_)
+		for (Note& note : notes_)
 		{
-			if (lane.update(conductor_))
+			if (!note.update(conductor_))
 			{
 				lastHit.hit = true;
+				notes_.pop_front();
 			}
 		}
 
 		// need to implement system
 		// to convert raw input into high level commands
-		if (Input::isKeyDown(sf::Keyboard::Z))
+		/*if (Input::isKeyDown(sf::Keyboard::Z))
 		{
 			lastHit = lanes_[0].hitNote(conductor_);
 			score_ += lastHit.score;
@@ -143,16 +136,16 @@ namespace nadpher
 		{
 			lastHit = lanes_[3].hitNote(conductor_);
 			score_ += lastHit.score;
-		}
+		}*/
 
 		return lastHit;
 	}
 
 	void Beatmap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		for (const Lane& lane : lanes_)
+		for (const Note& note : notes_)
 		{
-			target.draw(lane);
+			target.draw(note);
 		}
 	}
 }

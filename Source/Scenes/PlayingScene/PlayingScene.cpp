@@ -18,7 +18,7 @@ namespace nadpher
 			return;
 		}
 
-		if (beatmap_.init(beatmapPath))
+		if (beatmap_.readFromDisk(beatmapPath))
 		{
 			isInitialized_ = true;
 			beatmap_.play();

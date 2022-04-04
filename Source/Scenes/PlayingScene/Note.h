@@ -36,7 +36,7 @@ namespace nadpher
 
 	private:
 
-		const size_t lane_;
+		const unsigned int lane_;
 
 		const float timePosition_;
 		const float velocity_;
