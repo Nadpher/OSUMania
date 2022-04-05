@@ -26,7 +26,6 @@ namespace nadpher
 		Note::HitInfo hitNote(unsigned int lane);
 		// bool writeToDisk();
 
-		unsigned int getScore() const { return score_; }
 		bool empty() const { return notes_.empty(); }
 
 		void retry()
@@ -43,7 +42,6 @@ namespace nadpher
 
 		void stop()  
 		{
-			score_ = 0;
 			song_.stop();
 
 			notes_.clear();
@@ -54,8 +52,6 @@ namespace nadpher
 		static constexpr float judgementLinePosition = 200.0f;
 
 	private:
-
-		unsigned int score_;
 
 		void loadTimePositions();
 

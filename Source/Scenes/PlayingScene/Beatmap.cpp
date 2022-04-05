@@ -11,14 +11,12 @@
 namespace nadpher
 {
 	Beatmap::Beatmap()
-		  : score_(0)
 	{
 		sf::Vector2u gameBounds = Game::getBounds();
 	}
 
 	bool Beatmap::readFromDisk(const std::string& folderPath)
 	{
-		score_ = 0;
 		std::ifstream beatmapFile(folderPath + "/song.beatmap", std::ios::in);
 
 		// this is so fucking bad

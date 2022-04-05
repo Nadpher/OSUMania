@@ -82,7 +82,7 @@ namespace nadpher
 		// end the song
 		if (beatmap_.empty())
 		{
-			SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", beatmap_.getScore());
+			SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", score_);
 			beatmap_.stop();
 			return true;
 		}
