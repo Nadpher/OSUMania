@@ -11,7 +11,7 @@ namespace nadpher
 {
 	// this is all rly cringe
 	PlayingScene::PlayingScene(const std::string& beatmapPath)
-		: isInitialized_(false), judgementGuides_{}
+		: isInitialized_(false), judgementGuides_{}, score_(0)
 	{
 		if (beatmapPath == "")
 		{
@@ -71,6 +71,7 @@ namespace nadpher
 	{
 		popUp_.update();
 
+		// missed notes
 		Note::HitInfo info = beatmap_.update();
 		if (info.hit)
 		{
@@ -91,9 +92,57 @@ namespace nadpher
 			beatmap_.pause();
 		}
 
+		handleInput();
 		animateGuides();
 
 		return true;
+	}
+
+	void PlayingScene::handleInput()
+	{
+		if (Input::isKeyDown(sf::Keyboard::Z))
+		{
+			Note::HitInfo hit = beatmap_.hitNote(0);
+			score_ += hit.score;
+
+			if (hit.hit)
+			{
+				popUp_.show(hit.score);
+			}
+		}
+
+		if (Input::isKeyDown(sf::Keyboard::X))
+		{
+			Note::HitInfo hit = beatmap_.hitNote(1);
+			score_ += hit.score;
+
+			if (hit.hit)
+			{
+				popUp_.show(hit.score);
+			}
+		}
+
+		if (Input::isKeyDown(sf::Keyboard::N))
+		{
+			Note::HitInfo hit = beatmap_.hitNote(2);
+			score_ += hit.score;
+
+			if (hit.hit)
+			{
+				popUp_.show(hit.score);
+			}
+		}
+
+		if (Input::isKeyDown(sf::Keyboard::M))
+		{
+			Note::HitInfo hit = beatmap_.hitNote(3);
+			score_ += hit.score;
+
+			if (hit.hit)
+			{
+				popUp_.show(hit.score);
+			}
+		}
 	}
 
 	void PlayingScene::animateGuides()

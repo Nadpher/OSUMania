@@ -27,7 +27,10 @@ namespace nadpher
 		void handlePausedState();
 		bool handlePlayingState();
 
+		void handleInput();
 		void animateGuides();
+
+		unsigned int score_;
 
 		Beatmap beatmap_;
 		ScorePopUp popUp_;

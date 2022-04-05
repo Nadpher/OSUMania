@@ -71,6 +71,20 @@ namespace nadpher
 		return true;
 	}
 
+	// finds first note of lane and returns judge value
+	Note::HitInfo Beatmap::hitNote(unsigned int lane)
+	{
+		for (Note& note : notes_)
+		{
+			if (note.getLane() == lane)
+			{
+				return note.judge(conductor_);
+			}
+		}
+
+		return {};
+	}
+
 	void Beatmap::loadTimePositions()
 	{
 		std::stringstream timePositions(fileString_.substr(fileString_.find(']') + 2));
@@ -95,13 +109,6 @@ namespace nadpher
 
 		Note::HitInfo lastHit = { false, 0 };
 
-		if (empty())
-		{
-			static float newVolume = song_.getVolume() / 2.0f;
-			song_.setVolume(newVolume);
-			return lastHit;
-		}
-
 		// missed notes
 		for (Note& note : notes_)
 		{
@@ -111,32 +118,6 @@ namespace nadpher
 				notes_.pop_front();
 			}
 		}
-
-		// need to implement system
-		// to convert raw input into high level commands
-		/*if (Input::isKeyDown(sf::Keyboard::Z))
-		{
-			lastHit = lanes_[0].hitNote(conductor_);
-			score_ += lastHit.score;
-		}
-
-		if (Input::isKeyDown(sf::Keyboard::X))
-		{
-			lastHit = lanes_[1].hitNote(conductor_);
-			score_ += lastHit.score;
-		}
-
-		if (Input::isKeyDown(sf::Keyboard::N))
-		{
-			lastHit = lanes_[2].hitNote(conductor_);
-			score_ += lastHit.score;
-		}
-
-		if (Input::isKeyDown(sf::Keyboard::M))
-		{
-			lastHit = lanes_[3].hitNote(conductor_);
-			score_ += lastHit.score;
-		}*/
 
 		return lastHit;
 	}

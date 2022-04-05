@@ -22,13 +22,12 @@ namespace nadpher
 
 		Note::HitInfo update();
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-		unsigned int getScore() const { return score_; }
-
 		bool readFromDisk(const std::string& folderPath);
+		Note::HitInfo hitNote(unsigned int lane);
 		// bool writeToDisk();
 
-		bool empty() { return notes_.empty(); }
+		unsigned int getScore() const { return score_; }
+		bool empty() const { return notes_.empty(); }
 
 		void retry()
 		{
@@ -38,6 +37,7 @@ namespace nadpher
 			loadTimePositions();
 			play();
 		}
+
 		void play()  { song_.play();  }
 		void pause() { song_.pause(); }
 

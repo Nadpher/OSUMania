@@ -21,7 +21,10 @@ namespace nadpher
 		bool update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-		const float getTimePosition() const { return timePosition_; }
+		float getTimePosition() const { return timePosition_; }
+		unsigned int getLane() const { return lane_; }
+
+		HitInfo judge(const Conductor& conductor);
 
 		static constexpr unsigned int okScore = 50;
 		static constexpr unsigned int goodScore = 100;

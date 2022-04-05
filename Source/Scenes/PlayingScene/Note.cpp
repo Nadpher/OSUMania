@@ -26,6 +26,32 @@ namespace nadpher
 		worldPosition_.x = Game::getBounds().x / 2.0f + (textureSize.width * (static_cast<int>(lane) - 2));
 	}
 
+	Note::HitInfo Note::judge(const Conductor& conductor)
+	{
+		float conductorPos = conductor.getSongPosition();
+		if (std::abs(timePosition_ - conductorPos) < perfectTreshold)
+		{
+			return { perfectScore, true };
+		}
+
+		if (std::abs(timePosition_ - conductorPos) < goodTreshold)
+		{
+			return { goodScore, true };
+		}
+
+		if (std::abs(timePosition_ - conductorPos) < okTreshold)
+		{
+			return { okScore, true };
+		}
+
+		if (std::abs(timePosition_ - conductorPos) < missTreshold)
+		{
+			return { 0, true };
+		}
+
+		return {};
+	}
+
 	bool Note::update(const Conductor& conductor)
 	{
 		// calculates distance to judgement line based on 
