@@ -29,6 +29,8 @@ namespace nadpher
 	Note::HitInfo Note::judge(const Conductor& conductor)
 	{
 		float conductorPos = conductor.getSongPosition();
+
+		isAlive_ = false;
 		if (std::abs(timePosition_ - conductorPos) < perfectTreshold)
 		{
 			return { perfectScore, true };
@@ -49,6 +51,7 @@ namespace nadpher
 			return { 0, true };
 		}
 
+		isAlive_ = true;
 		return {};
 	}
 
@@ -62,10 +65,10 @@ namespace nadpher
 		// handle missed notes
 		if (conductor.getSongPosition() - timePosition_ > missTreshold)
 		{
-			return false;
+			isAlive_ = false;
 		}
 
-		return true;
+		return isAlive_;
 	}
 
 	void Note::draw(sf::RenderTarget& target, sf::RenderStates states) const

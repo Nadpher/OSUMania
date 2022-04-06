@@ -12,11 +12,13 @@ namespace nadpher
 {
 	Beatmap::Beatmap()
 	{
-		sf::Vector2u gameBounds = Game::getBounds();
+
 	}
 
 	bool Beatmap::readFromDisk(const std::string& folderPath)
 	{
+		notes_.clear();
+
 		std::ifstream beatmapFile(folderPath + "/song.beatmap", std::ios::in);
 
 		// this is so fucking bad
@@ -74,13 +76,27 @@ namespace nadpher
 	{
 		for (Note& note : notes_)
 		{
-			if (note.getLane() == lane)
+			if (note.getLane() == lane && note.isAlive())
 			{
 				return note.judge(conductor_);
 			}
 		}
 
 		return {};
+	}
+
+	// checks if all notes are dead
+	bool Beatmap::empty()
+	{
+		for (const Note& note : notes_)
+		{
+			if (note.isAlive())
+			{
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 	void Beatmap::loadTimePositions()
@@ -110,10 +126,13 @@ namespace nadpher
 		// missed notes
 		for (Note& note : notes_)
 		{
-			if (!note.update(conductor_))
+			if (note.isAlive())
 			{
-				lastHit.hit = true;
-				notes_.pop_front();
+				if (!note.update(conductor_))
+				{
+					lastHit.hit = true;
+					notes_.pop_front();
+				}
 			}
 		}
 
@@ -124,7 +143,10 @@ namespace nadpher
 	{
 		for (const Note& note : notes_)
 		{
-			target.draw(note);
+			if (note.isAlive())
+			{
+				target.draw(note);
+			}
 		}
 	}
 }

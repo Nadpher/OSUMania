@@ -21,8 +21,11 @@ namespace nadpher
 		bool update(const Conductor& conductor);
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
+		void revive() { isAlive_ = true; }
+
 		float getTimePosition() const { return timePosition_; }
 		unsigned int getLane() const { return lane_; }
+		bool isAlive() const { return isAlive_; }
 
 		HitInfo judge(const Conductor& conductor);
 
@@ -38,6 +41,8 @@ namespace nadpher
 		static constexpr unsigned int noteSize = 128;
 
 	private:
+
+		bool isAlive_;
 
 		const unsigned int lane_;
 

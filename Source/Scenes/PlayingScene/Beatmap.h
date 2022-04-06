@@ -21,31 +21,29 @@ namespace nadpher
 		sf::SoundSource::Status getBeatmapStatus() const { return song_.getStatus(); }
 
 		Note::HitInfo update();
-		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-		bool readFromDisk(const std::string& folderPath);
 		Note::HitInfo hitNote(unsigned int lane);
+		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+		bool readFromDisk(const std::string& folderPath);
 		// bool writeToDisk();
 
-		bool empty() const { return notes_.empty(); }
+		bool empty();
 
 		void retry()
 		{
-			stop();
 			conductor_.reset();
 
-			loadTimePositions();
+			for (Note& note : notes_)
+			{
+				note.revive();
+			}
+
 			play();
 		}
 
 		void play()  { song_.play();  }
 		void pause() { song_.pause(); }
-
-		void stop()  
-		{
-			song_.stop();
-
-			notes_.clear();
-		}
+		void stop()  { song_.stop();  }
 
 		static constexpr unsigned int lanesNum = 4;
 
