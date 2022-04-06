@@ -31,6 +31,8 @@ namespace nadpher
 
 		void retry()
 		{
+			stop();
+
 			conductor_.reset();
 
 			for (Note& note : notes_)
