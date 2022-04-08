@@ -8,6 +8,7 @@
 #include "Scenes/MainScene/MainScene.h"
 #include "Scenes/PlayingScene/PlayingScene.h"
 #include "Scenes/ScoreScene/ScoreScene.h"
+#include "Scenes/EditScene/EditScene.h"
 
 namespace nadpher
 {
@@ -53,6 +54,7 @@ namespace nadpher
 			scenes_.push_back(std::make_unique<MainScene>());
 			scenes_.push_back(std::make_unique<PlayingScene>());
 			scenes_.push_back(std::make_unique<ScoreScene>());
+			scenes_.push_back(std::make_unique<EditScene>());
 		}
 
 		std::vector<std::unique_ptr<Scene>> scenes_;

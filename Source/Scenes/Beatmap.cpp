@@ -1,5 +1,5 @@
-#include "../../Game.h"
-#include "../../Input.h"
+#include "../Game.h"
+#include "../Input.h"
 
 #include "Beatmap.h"
 

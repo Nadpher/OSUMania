@@ -2,8 +2,8 @@
 #define OSUMANIA_PLAYING_SCENE_H
 
 #include "../Scene.h"
+#include "../Beatmap.h"
 
-#include "Beatmap.h"
 #include "ScorePopUp.h"
 
 #include <string>
@@ -20,8 +20,6 @@ namespace nadpher
 		void end() override;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-		static constexpr float cooldownTime = 2.0f;
 
 	private:
 		void handlePausedState();

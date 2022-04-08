@@ -1,5 +1,5 @@
-#include "../../Game.h"
-#include "../../TextureManager.h"
+#include "../Game.h"
+#include "../TextureManager.h"
 
 #include "Note.h"
 #include "Conductor.h"

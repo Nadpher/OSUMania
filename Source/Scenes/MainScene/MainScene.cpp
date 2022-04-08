@@ -46,7 +46,10 @@ namespace nadpher
 		}
 
 		ImGui::SetCursorPosX(padding);
-		ImGui::Button("Edit", { windowSize.x - padding * 2.0f, windowSize.y / 3.0f - padding });
+		if (ImGui::Button("Edit", { windowSize.x - padding * 2.0f, windowSize.y / 3.0f - padding }))
+		{
+			SceneManager::getInstance()->switchScene(EDIT_SCENE_INDEX);
+		}
 
 		ImGui::SetCursorPosX(padding);
 		if (ImGui::Button("Quit", { windowSize.x - padding * 2.0f, windowSize.y / 3.0f - padding }))

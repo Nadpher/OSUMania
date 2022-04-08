@@ -52,6 +52,7 @@ namespace nadpher
 		static constexpr float judgementLinePosition = 200.0f;
 
 	private:
+	friend class EditScene;
 
 		void loadTimePositions();
 
