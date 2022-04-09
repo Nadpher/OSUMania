@@ -4,16 +4,21 @@
 #include "../../FontManager.h"
 #include "../../SceneManager.h"
 
+#include "../PlayingScene/PlayingScene.h"
+
 #include <imgui.h>
 
 namespace nadpher
 {
-	ScoreScene::ScoreScene(unsigned int score)
+	ScoreScene::ScoreScene()
 	{
 		scoreText_.setFont(*FontManager::get("Resource/Fonts/regularFont.ttf"));
+	}
 
+	void ScoreScene::enter()
+	{
 		std::string scoreString("Score: ");
-		scoreString += std::to_string(score);
+		scoreString += std::to_string(PlayingScene::getScore());
 
 		scoreText_.setString(scoreString);
 
@@ -49,11 +54,6 @@ namespace nadpher
 		ImGui::End();
 
 		return true;
-	}
-
-	void ScoreScene::end()
-	{
-
 	}
 
 	void ScoreScene::draw(sf::RenderTarget& target, sf::RenderStates states) const

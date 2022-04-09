@@ -14,12 +14,14 @@ namespace nadpher
 	class PlayingScene : public Scene
 	{
 	public:
-		PlayingScene(const std::string& beatmapPath = "");
+		PlayingScene();
 
 		bool update() override;
-		void end() override;
+		void enter() override;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+		static unsigned int getScore() { return score_; }
 
 	private:
 		void handlePausedState();
@@ -28,13 +30,11 @@ namespace nadpher
 		void handleInput();
 		void animateGuides();
 
-		unsigned int score_;
+		static unsigned int score_;
 
 		Beatmap beatmap_;
 		ScorePopUp popUp_;
 		std::array<sf::Sprite, Beatmap::lanesNum> judgementGuides_;
-
-		bool isInitialized_;
 	};
 }
 

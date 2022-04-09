@@ -8,10 +8,10 @@ namespace nadpher
 	class ScoreScene : public Scene
 	{
 	public:
-		ScoreScene(unsigned int score = 0);
+		ScoreScene();
 
 		bool update() override;
-		void end() override;
+		void enter() override;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 

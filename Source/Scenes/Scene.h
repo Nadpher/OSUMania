@@ -14,8 +14,8 @@ namespace nadpher
 	{
 	public:
 
+		virtual void enter() = 0;
 		virtual bool update() = 0;
-		virtual void end() = 0;
 
 		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const = 0;
 

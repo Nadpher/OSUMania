@@ -9,21 +9,12 @@
 
 namespace nadpher
 {
+	unsigned int PlayingScene::score_ = 0;
+
 	// this is all rly cringe
-	PlayingScene::PlayingScene(const std::string& beatmapPath)
-		: isInitialized_(false), judgementGuides_{}, score_(0)
+	PlayingScene::PlayingScene()
+		: judgementGuides_{}
 	{
-		if (beatmapPath == "")
-		{
-			return;
-		}
-
-		if (beatmap_.readFromDisk(beatmapPath))
-		{
-			isInitialized_ = true;
-			beatmap_.play();
-		}
-
 		sf::Vector2u gameBounds = Game::getBounds();
 		for (int i = 0; i < Beatmap::lanesNum; ++i)
 		{
@@ -39,14 +30,20 @@ namespace nadpher
 		}
 	}
 
-	bool PlayingScene::update()
+	void PlayingScene::enter()
 	{
-		if (!isInitialized_)
+		if (beatmap_.readFromDisk(MainScene::getPath()))
+		{
+			beatmap_.play();
+		}
+		else
 		{
 			SceneManager::getInstance()->switchScene(MAIN_SCENE_INDEX);
-			return true;
 		}
+	}
 
+	bool PlayingScene::update()
+	{
 		switch (beatmap_.getBeatmapStatus())
 		{
 		case sf::SoundSource::Stopped:
@@ -82,7 +79,7 @@ namespace nadpher
 		// end the song
 		if (beatmap_.empty())
 		{
-			SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX, "", score_);
+			SceneManager::getInstance()->switchScene(SCORE_SCENE_INDEX);
 			beatmap_.stop();
 			return true;
 		}
@@ -223,20 +220,15 @@ namespace nadpher
 		ImGui::End();
 	}
 
-	void PlayingScene::end()
-	{
-
-	}
-
 	void PlayingScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
 		for (int i = 0; i < Beatmap::lanesNum; ++i)
 		{
-			target.draw(judgementGuides_[i]);
+			target.draw(judgementGuides_[i], states);
 		}
 
-		target.draw(beatmap_);
+		target.draw(beatmap_, states);
 
-		target.draw(popUp_);
+		target.draw(popUp_, states);
 	}
 }

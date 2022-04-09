@@ -12,11 +12,10 @@
 
 namespace nadpher
 {
+	// read up on observer pattern!
 	class SceneManager
 	{
 	public:
-
-		static constexpr float transDuration = 2.0f;
 
 		static SceneManager* getInstance()
 		{
@@ -24,32 +23,24 @@ namespace nadpher
 			return instance;
 		}
 
-		std::unique_ptr<Scene>& getScene() { return scenes_[currentScene_]; }
+		Scene* getScene() const { return scenes_[currentScene_].get(); }
 		
-		// rly ugly and bad
-		void switchScene(unsigned int index, const std::string& beatmap = "", const unsigned int score = 0)
+		void switchScene(unsigned int index)
 		{ 
-			currentScene_ = index;
-
-			switch (currentScene_)
+			// invalid index
+			if (index > scenes_.size() - 1)
 			{
-			case PLAYING_SCENE_INDEX:
-				scenes_[currentScene_].reset(new PlayingScene(beatmap));
-				break;
-
-			case SCORE_SCENE_INDEX:
-				scenes_[currentScene_].reset(new ScoreScene(score));
-				break;
-
-			default:
-				break;
+				return;
 			}
+
+			currentScene_ = index;
+			scenes_[currentScene_]->enter();
 		}
 
 	private:
 
 		SceneManager()
-			: currentScene_(0)
+			: currentScene_(0), scenes_{}
 		{
 			scenes_.push_back(std::make_unique<MainScene>());
 			scenes_.push_back(std::make_unique<PlayingScene>());
@@ -58,7 +49,7 @@ namespace nadpher
 		}
 
 		std::vector<std::unique_ptr<Scene>> scenes_;
-		size_t currentScene_;
+		unsigned int currentScene_;
 	};
 }
 

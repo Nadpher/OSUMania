@@ -11,7 +11,9 @@
 
 namespace nadpher
 {
-	MainScene::MainScene()
+	std::string MainScene::selectedMapPath_;
+
+	void MainScene::enter()
 	{
 
 	}
@@ -42,12 +44,14 @@ namespace nadpher
 		ImGui::SetCursorPosX(padding);
 		if (ImGui::Button("Play", { windowSize.x - padding * 2.0f, windowSize.y / 3.0f - padding }))
 		{
-			openBeatmap();
+			selectedMapPath_ = openBeatmap();
+			SceneManager::getInstance()->switchScene(PLAYING_SCENE_INDEX);
 		}
 
 		ImGui::SetCursorPosX(padding);
 		if (ImGui::Button("Edit", { windowSize.x - padding * 2.0f, windowSize.y / 3.0f - padding }))
 		{
+			selectedMapPath_ = openBeatmap();
 			SceneManager::getInstance()->switchScene(EDIT_SCENE_INDEX);
 		}
 
@@ -63,7 +67,7 @@ namespace nadpher
 		return true;
 	}
 
-	void MainScene::openBeatmap()
+	std::string MainScene::openBeatmap()
 	{
 		// sketchy C mem allocation
 
@@ -76,19 +80,16 @@ namespace nadpher
 
 			std::string path(outPath);
 			path += '/';
-			SceneManager::getInstance()->switchScene(PLAYING_SCENE_INDEX, path);
-
 			free(outPath);
+
+			return path;
 		}
 		else if (result != NFD_CANCEL)
 		{
 			spdlog::error(NFD_GetError());
 		}
-	}
 
-	void MainScene::end()
-	{
-		
+		return "";
 	}
 
 	void MainScene::draw(sf::RenderTarget& target, sf::RenderStates states) const

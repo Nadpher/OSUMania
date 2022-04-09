@@ -11,10 +11,8 @@ namespace nadpher
 	class EditScene : public Scene
 	{
 	public:
-		EditScene(const std::string& path = "");
-
+		void enter() override;
 		bool update() override;
-		void end() override;
 
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
