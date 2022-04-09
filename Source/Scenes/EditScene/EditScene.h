@@ -11,6 +11,8 @@ namespace nadpher
 	class EditScene : public Scene
 	{
 	public:
+		EditScene();
+
 		void enter() override;
 		bool update() override;
 
@@ -18,7 +20,10 @@ namespace nadpher
 
 	private:
 
+		void autoHit();
+
 		Beatmap beatmap_;
+		std::array<sf::Sprite, Beatmap::lanesNum> judgementGuides_;
 	};
 }
 
