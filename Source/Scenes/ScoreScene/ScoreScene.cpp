@@ -58,6 +58,6 @@ namespace nadpher
 
 	void ScoreScene::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	{
-		target.draw(scoreText_);
+		target.draw(scoreText_, states);
 	}
 }
