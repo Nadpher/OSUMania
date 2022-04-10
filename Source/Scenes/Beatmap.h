@@ -6,7 +6,7 @@
 
 #include <string>
 #include <array>
-#include <deque>
+#include <vector>
 
 #include "Conductor.h"
 #include "Note.h"
@@ -56,7 +56,7 @@ namespace nadpher
 
 		void loadTimePositions();
 
-		std::deque<Note> notes_;
+		std::vector<Note> notes_;
 
 		std::string fileString_;
 
