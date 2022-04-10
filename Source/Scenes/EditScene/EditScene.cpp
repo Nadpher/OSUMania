@@ -8,10 +8,12 @@
 #include "../MainScene/MainScene.h"
 
 #include <spdlog/spdlog.h>
+#include <imgui.h>
 
 namespace nadpher
 {
 	EditScene::EditScene()
+		: changed_(false)
 	{
 		sf::Vector2u gameBounds = Game::getBounds();
 		for (int i = 0; i < Beatmap::lanesNum; ++i)
@@ -45,10 +47,7 @@ namespace nadpher
 		{
 		case sf::SoundSource::Paused:
 		case sf::SoundSource::Stopped:
-			if (Input::isKeyDown(sf::Keyboard::Space))
-			{
-				beatmap_.play();
-			}
+			handleStoppedState();
 			break;
 
 		case sf::SoundSource::Playing:
@@ -65,6 +64,58 @@ namespace nadpher
 		}
 
 		return true;
+	}
+
+	void EditScene::handleStoppedState()
+	{
+		ImGuiIO& io = ImGui::GetIO();
+
+		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, 0.0f));
+		if (ImGui::Begin("Timeline", 0,
+			ImGuiWindowFlags_NoBackground |
+			ImGuiWindowFlags_NoMove |
+			ImGuiWindowFlags_NoScrollbar |
+			ImGuiWindowFlags_NoScrollWithMouse |
+			ImGuiWindowFlags_NoResize |
+			ImGuiWindowFlags_NoTitleBar |
+			ImGuiWindowFlags_NoCollapse))
+		{
+			float songPosition = beatmap_.conductor_.getSongPosition() - beatmap_.conductor_.getOffset();
+			if (ImGui::SliderFloat("Pos", & songPosition, 0.0f, beatmap_.song_.getDuration().asSeconds(), "%.2f", ImGuiSliderFlags_AlwaysClamp))
+			{
+				beatmap_.song_.setPlayingOffset(sf::Time(sf::seconds(songPosition)));
+				reloadPositions();
+			}
+		}
+		ImGui::End();
+
+		if (ImGui::Begin("Edit..."))
+		{
+			if (ImGui::Button("Save") && changed_)
+			{
+				changed_ = false;
+				// beatmap_.writeToDisk();
+			}
+
+		}
+		ImGui::End();
+
+		if (Input::isKeyDown(sf::Keyboard::Space))
+		{
+			beatmap_.play();
+		}
+	}
+
+	void EditScene::reloadPositions()
+	{
+		float songPosition = beatmap_.song_.getPlayingOffset().asSeconds() + beatmap_.conductor_.getOffset();
+		for (Note& note : beatmap_.notes_)
+		{
+			if (note.getTimePosition() >= songPosition)
+			{
+				note.revive();
+			}
+		}
 	}
 
 	void EditScene::autoHit()

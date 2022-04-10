@@ -20,6 +20,7 @@ namespace nadpher
 		float getSongPosition() const { return songPosition_; }
 		float getCrotchet() const { return crotchet_; }
 		float getBPM() const { return bpm_; }
+		float getOffset() const { return offset_; }
 
 		void reset() { songPosition_ = 0.0f; }
 

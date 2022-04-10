@@ -26,7 +26,6 @@ namespace nadpher
 		{
 			float bpm = 0.0f;
 			float offset = 0.0f;
-			float velocity = 0.0f;
 
 			std::string line;
 			std::string fileString = "";
@@ -131,7 +130,6 @@ namespace nadpher
 				if (!note.update(conductor_))
 				{
 					lastHit.hit = true;
-					notes_.pop_front();
 				}
 			}
 		}
@@ -145,7 +143,7 @@ namespace nadpher
 		{
 			if (note.isAlive())
 			{
-				target.draw(note);
+				target.draw(note, states);
 			}
 		}
 	}

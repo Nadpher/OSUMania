@@ -20,8 +20,11 @@ namespace nadpher
 
 	private:
 
+		void handleStoppedState();
+		void reloadPositions();
 		void autoHit();
 
+		bool changed_;
 		Beatmap beatmap_;
 		std::array<sf::Sprite, Beatmap::lanesNum> judgementGuides_;
 	};
