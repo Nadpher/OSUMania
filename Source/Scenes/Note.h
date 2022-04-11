@@ -24,7 +24,9 @@ namespace nadpher
 		void revive() { isAlive_ = true; }
 
 		float getTimePosition() const { return timePosition_; }
+		float getVelocity() const { return velocity_; }
 		unsigned int getLane() const { return lane_; }
+
 		bool isAlive() const { return isAlive_; }
 
 		HitInfo judge(const Conductor& conductor);

@@ -25,7 +25,7 @@ namespace nadpher
 		void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
 		bool readFromDisk(const std::string& folderPath);
-		// bool writeToDisk();
+		bool writeToDisk();
 
 		bool empty();
 
@@ -54,11 +54,8 @@ namespace nadpher
 	private:
 	friend class EditScene;
 
-		void loadTimePositions();
-
 		std::vector<Note> notes_;
-
-		std::string fileString_;
+		std::string path_;
 
 		// should probably move this to conductor
 		sf::Music song_;
