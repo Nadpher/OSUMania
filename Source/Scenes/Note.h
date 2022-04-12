@@ -11,6 +11,10 @@ namespace nadpher
 	{
 	public:
 		Note(float timePosition = 0.0f, float velocity = 1.0f, unsigned int lane = 0);
+		Note(const Note& note);
+		~Note() = default;
+
+		Note& operator=(const Note& note);
 
 		struct HitInfo
 		{
@@ -46,12 +50,11 @@ namespace nadpher
 
 		bool isAlive_;
 
-		const unsigned int lane_;
+		unsigned int lane_;
 
-		const float timePosition_;
-		const float velocity_;
+		float timePosition_;
+		float velocity_;
 
-		sf::Vector2f worldPosition_;
 		sf::Sprite sprite_;
 	};
 }

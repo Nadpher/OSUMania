@@ -8,22 +8,36 @@
 namespace nadpher
 {
 	Note::Note(float timePosition, float velocity, unsigned int lane)
-		: timePosition_(timePosition), velocity_(velocity), lane_(lane),
-		worldPosition_{}, sprite_{}
+		: timePosition_(timePosition), velocity_(velocity), lane_(lane), 
+		isAlive_(true), sprite_{}
 	{
 		sprite_.setTexture(*TextureManager::get("Resource/Textures/notes.png"));
 
-		// 128 is the size of each arrow
-		sprite_.setTextureRect(sf::IntRect(lane * 128, 0, 128, 128));
+		sprite_.setTextureRect(sf::IntRect(lane * noteSize, 0, noteSize, noteSize));
 
 		// centers textures on the Y axis and not on the X
 		// to make it easy to center the lanes
-		auto textureSize = sprite_.getTextureRect();
-		sprite_.setOrigin({ 0.0f, textureSize.height/2.0f });
+		sprite_.setOrigin({ 0.0f, noteSize/2.0f });
+		sprite_.setPosition((float)Game::getBounds().x / 2.0f + (static_cast<int>(noteSize) * (static_cast<int>(lane) - Beatmap::lanesNum / 2.0f)), 0.0f);
+	}
 
-		// im using -2 to split the 4 lanes into two where the first two lanes
-		// will be -2 and -1 and the next two will be 0 and 1, centering the sprites
-		worldPosition_.x = Game::getBounds().x / 2.0f + (textureSize.width * (static_cast<int>(lane) - 2));
+	Note::Note(const Note& note)
+		: timePosition_(note.timePosition_), velocity_(note.velocity_),
+		  lane_(note.lane_), isAlive_(note.isAlive_), sprite_(note.sprite_)
+	{
+		
+	}
+
+	Note& Note::operator=(const Note& note)
+	{
+		timePosition_ = note.timePosition_;
+		velocity_ = note.velocity_;
+		lane_ = note.lane_;
+		isAlive_ = note.isAlive_;
+
+		sprite_ = note.sprite_;
+
+		return *this;
 	}
 
 	Note::HitInfo Note::judge(const Conductor& conductor)
@@ -59,8 +73,10 @@ namespace nadpher
 	{
 		// calculates distance to judgement line based on 
 		// note velocity and song position
-		worldPosition_.y = (conductor.getSongPosition() - timePosition_) * velocity_ + (float)Game::getBounds().y - Beatmap::judgementLinePosition;
-		sprite_.setPosition(worldPosition_);
+		sf::Vector2f worldPosition = sprite_.getPosition();
+
+		worldPosition.y = (conductor.getSongPosition() - timePosition_)* velocity_ + (float)Game::getBounds().y - Beatmap::judgementLinePosition;
+		sprite_.setPosition(worldPosition);
 
 		// handle missed notes
 		if (conductor.getSongPosition() - timePosition_ > missTreshold)
